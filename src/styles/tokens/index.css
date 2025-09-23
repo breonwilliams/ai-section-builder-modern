@@ -1,0 +1,14 @@
+/**
+ * Design Token System Entry Point
+ * Imports both editor and section token systems
+ * 
+ * IMPORTANT: These are two completely separate systems
+ * - Editor tokens: For UI components (toolbar, sidebars, panels)
+ * - Section tokens: For content rendering (hero, features, etc.)
+ */
+
+/* Editor UI Tokens - Purple brand identity, dark theme */
+@import './editor-tokens.css';
+
+/* Section Rendering Tokens - User customizable via global settings */
+@import './section-tokens.css';
