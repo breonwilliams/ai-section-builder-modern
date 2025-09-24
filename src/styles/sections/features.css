@@ -243,6 +243,12 @@
   text-decoration: underline;
 }
 
+/* Dark Mode Overrides */
+/* Dark Mode Eyebrow - Use lighter blue for visibility */
+.aisb-section--dark .aisb-features__eyebrow {
+  color: var(--aisb-color-primary-light);
+}
+
 /* Dark Mode Link Styles */
 .aisb-section--dark .aisb-features__item-link {
   color: var(--aisb-color-primary-light);

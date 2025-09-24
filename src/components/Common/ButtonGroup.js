@@ -56,9 +56,6 @@ function ButtonGroup({ buttons = [], onChange }) {
           {buttons.map((button, index) => (
             <div key={index} className="aisb-button-group__item">
               <div className="aisb-button-group__item-header">
-                <span className="aisb-button-group__item-handle">
-                  <span className="dashicons dashicons-move"></span>
-                </span>
                 <span className="aisb-button-group__item-title">
                   Button {index + 1}
                 </span>

@@ -232,12 +232,22 @@
   --section-outro: var(--aisb-color-dark-text);
 }
 
-/* Dark Mode Button Overrides */
+/* Dark Mode Overrides */
+/* Dark Mode Eyebrow - Use lighter blue for visibility */
+.aisb-section--dark .aisb-hero__eyebrow {
+  color: var(--aisb-color-primary-light);
+}
+
+/* Dark Mode Primary Button - Use lighter blue for visibility */
 .aisb-section--dark .aisb-btn-primary {
+  background: var(--aisb-color-primary-light);
+  border-color: var(--aisb-color-primary-light);
   color: var(--aisb-color-text-inverse);
 }
 
 .aisb-section--dark .aisb-btn-primary:hover {
+  background: var(--aisb-color-primary);
+  border-color: var(--aisb-color-primary);
   color: var(--aisb-color-text-inverse) !important;
 }
 

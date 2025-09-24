@@ -60,6 +60,20 @@ class RestAPI {
                 ],
             ],
         ]);
+        
+        // Process content endpoint for document processing
+        register_rest_route('ai-section-builder/v1', '/process-content', [
+            'methods' => 'POST',
+            'callback' => [$this, 'process_content'],
+            'permission_callback' => [$this, 'check_permission'],
+            'args' => [
+                'content' => [
+                    'required' => true,
+                    'type' => 'string',
+                    'sanitize_callback' => 'wp_kses_post',
+                ],
+            ],
+        ]);
     }
     
     /**
@@ -193,5 +207,37 @@ class RestAPI {
         }
         
         return $sanitized;
+    }
+    
+    /**
+     * Process content and extract sections
+     */
+    public function process_content($request) {
+        $content = $request->get_param('content');
+        
+        // Include AI processor files
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/AI/ContentPatterns.php';
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/AI/ContentNormalizer.php';
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/AI/PatternMatcher.php';
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/AI/DocumentProcessor.php';
+        
+        try {
+            // Process the content
+            $processor = new \AISB\Modern\AI\DocumentProcessor();
+            $result = $processor->processDocument($content);
+            
+            return rest_ensure_response([
+                'success' => true,
+                'sections' => $result['sections'],
+                'metadata' => $result['metadata'],
+                'message' => 'Content processed successfully',
+            ]);
+        } catch (\Exception $e) {
+            return rest_ensure_response([
+                'success' => false,
+                'message' => 'Failed to process content: ' . $e->getMessage(),
+                'sections' => [],
+            ]);
+        }
     }
 }

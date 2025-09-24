@@ -157,6 +157,17 @@ export const useEditorStore = create(
         state.sidebarsVisible = visible;
       });
     },
+    
+    setSections: (sections) => {
+      set((state) => {
+        state.sections = sections;
+        state.isDirty = true;
+        // Reset current section if it's out of bounds
+        if (state.currentSectionIndex >= sections.length) {
+          state.currentSectionIndex = sections.length > 0 ? sections.length - 1 : null;
+        }
+      });
+    },
   }))
 );
 
