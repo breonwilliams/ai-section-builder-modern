@@ -13,6 +13,7 @@ class MetaBoxes {
         add_action('add_meta_boxes', [$this, 'add_meta_boxes']);
         add_action('wp_ajax_aisb_activate_builder', [$this, 'ajax_activate_builder']);
         add_action('wp_ajax_aisb_deactivate_builder', [$this, 'ajax_deactivate_builder']);
+        add_action('wp_ajax_aisb_save_display_mode', [$this, 'ajax_save_display_mode']);
     }
     
     /**
@@ -41,6 +42,7 @@ class MetaBoxes {
         $is_enabled = get_post_meta($post->ID, '_aisb_enabled', true);
         $sections = get_post_meta($post->ID, '_aisb_sections', true);
         $has_sections = !empty($sections) && is_array($sections) && count($sections) > 0;
+        $display_mode = get_post_meta($post->ID, '_aisb_display_mode', true) ?: 'fullwidth';
         
         // Add nonce for security
         wp_nonce_field('aisb_meta_box_action', 'aisb_nonce');
@@ -94,6 +96,29 @@ class MetaBoxes {
                     opacity: 0.6;
                     cursor: not-allowed;
                 }
+                .aisb-template-selector {
+                    margin: 15px 0;
+                    padding: 15px;
+                    background: #f8f9fa;
+                    border: 1px solid #dee2e6;
+                    border-radius: 4px;
+                }
+                .aisb-template-selector label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                }
+                .aisb-template-selector select {
+                    width: 100%;
+                    max-width: 400px;
+                    padding: 8px;
+                    font-size: 14px;
+                }
+                .aisb-template-selector__description {
+                    margin-top: 8px;
+                    font-size: 13px;
+                    color: #6c757d;
+                }
             </style>
             
             <?php if ($is_enabled): ?>
@@ -104,6 +129,24 @@ class MetaBoxes {
                     <?php else: ?>
                         <br><small><?php _e('No sections added yet', 'ai-section-builder-modern'); ?></small>
                     <?php endif; ?>
+                </div>
+                
+                <div class="aisb-template-selector">
+                    <label for="aisb_display_mode"><?php _e('Display Mode', 'ai-section-builder-modern'); ?></label>
+                    <select id="aisb_display_mode" name="aisb_display_mode" data-post-id="<?php echo $post->ID; ?>">
+                        <option value="canvas" <?php selected($display_mode, 'canvas'); ?>>
+                            <?php _e('Canvas - Blank page (no header/footer)', 'ai-section-builder-modern'); ?>
+                        </option>
+                        <option value="fullwidth" <?php selected($display_mode, 'fullwidth'); ?>>
+                            <?php _e('Full Width - With theme header/footer', 'ai-section-builder-modern'); ?>
+                        </option>
+                        <option value="contained" <?php selected($display_mode, 'contained'); ?>>
+                            <?php _e('Contained - Within theme layout', 'ai-section-builder-modern'); ?>
+                        </option>
+                    </select>
+                    <div class="aisb-template-selector__description">
+                        <?php _e('Choose how sections are displayed on the frontend. Canvas mode is perfect for landing pages.', 'ai-section-builder-modern'); ?>
+                    </div>
                 </div>
                 
                 <div class="aisb-meta-box__actions">
@@ -134,6 +177,31 @@ class MetaBoxes {
             
             <script>
             jQuery(document).ready(function($) {
+                // Save display mode on change
+                $('#aisb_display_mode').on('change', function() {
+                    var mode = $(this).val();
+                    var postId = $(this).data('post-id');
+                    
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'aisb_save_display_mode',
+                            post_id: postId,
+                            display_mode: mode,
+                            nonce: $('#aisb_nonce').val()
+                        },
+                        success: function(response) {
+                            // Show a brief success message
+                            var $selector = $('.aisb-template-selector');
+                            $selector.css('background', '#d4edda');
+                            setTimeout(function() {
+                                $selector.css('background', '#f8f9fa');
+                            }, 500);
+                        }
+                    });
+                });
+                
                 // Edit with builder
                 $('.aisb-edit-builder').on('click', function(e) {
                     e.preventDefault();
@@ -264,5 +332,34 @@ class MetaBoxes {
         update_post_meta($post_id, '_aisb_enabled', 0);
         
         wp_send_json_success();
+    }
+    
+    /**
+     * AJAX handler for saving display mode
+     */
+    public function ajax_save_display_mode() {
+        // Verify nonce
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'aisb_meta_box_action')) {
+            wp_die('Security check failed');
+        }
+        
+        $post_id = intval($_POST['post_id']);
+        $display_mode = sanitize_key($_POST['display_mode']);
+        
+        // Verify user can edit this post
+        if (!current_user_can('edit_post', $post_id)) {
+            wp_send_json_error('Permission denied');
+        }
+        
+        // Validate display mode
+        $valid_modes = ['canvas', 'fullwidth', 'contained'];
+        if (!in_array($display_mode, $valid_modes)) {
+            $display_mode = 'fullwidth';
+        }
+        
+        // Save the display mode
+        update_post_meta($post_id, '_aisb_display_mode', $display_mode);
+        
+        wp_send_json_success(['display_mode' => $display_mode]);
     }
 }

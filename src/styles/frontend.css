@@ -1,0 +1,11 @@
+/**
+ * Frontend Styles
+ * Only includes necessary styles for rendering sections on the frontend
+ */
+
+/* Import section tokens for theming */
+@import './tokens/section-tokens.css';
+
+/* Import section styles */
+@import './sections/hero.css';
+@import './sections/features.css';

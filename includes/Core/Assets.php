@@ -122,8 +122,11 @@ class Assets {
         // Check if current post/page has sections
         if (is_singular()) {
             global $post;
-            $sections = get_post_meta($post->ID, '_aisb_sections', true);
-            return !empty($sections);
+            if ($post) {
+                $sections = get_post_meta($post->ID, '_aisb_sections', true);
+                // Check if we have valid sections data (array or JSON string)
+                return !empty($sections) && (is_array($sections) || is_string($sections));
+            }
         }
         
         return false;

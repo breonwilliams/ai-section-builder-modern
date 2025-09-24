@@ -26,6 +26,9 @@ class Plugin {
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/Admin/EditorTemplate.php';
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/API/RestAPI.php';
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/Assets.php';
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/Helpers.php';
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/TemplateHandler.php';
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/SectionRenderer.php';
     }
     
     /**
@@ -52,5 +55,9 @@ class Plugin {
         $assets = new \AISB\Modern\Core\Assets();
         add_action('admin_enqueue_scripts', [$assets, 'enqueue_admin_assets']);
         add_action('wp_enqueue_scripts', [$assets, 'enqueue_frontend_assets']);
+        
+        // Frontend rendering
+        $template_handler = new \AISB\Modern\Core\TemplateHandler();
+        $template_handler->init();
     }
 }

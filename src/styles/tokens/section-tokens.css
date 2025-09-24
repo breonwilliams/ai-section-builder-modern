@@ -142,4 +142,33 @@
     --aisb-section-transition-fast: 150ms ease;
     --aisb-section-transition-base: 200ms ease;
     --aisb-section-transition-slow: 300ms ease;
+    
+    /* =========================================
+       Foundation for Future Global Settings
+       ========================================= */
+    
+    /* Container Width - User customizable in future */
+    --aisb-section-max-width: 1200px;
+    
+    /* Typography Settings - Future font picker */
+    --aisb-section-font-heading: var(--aisb-section-font-family);
+    --aisb-section-font-body: var(--aisb-section-font-family);
+    
+    /* Spacing Scale - User can adjust density */
+    --aisb-section-spacing-scale: 1;
+    
+    /* Border Radius Presets - User customizable */
+    --aisb-section-radius-button: var(--aisb-section-radius-md);
+    --aisb-section-radius-card: var(--aisb-section-radius-lg);
+    --aisb-section-radius-image: var(--aisb-section-radius-lg);
+    
+    /* Golden Ratio for Visual Harmony */
+    --aisb-golden-ratio: 1.618;
+    
+    /* Heading Sizes with Golden Ratio */
+    --aisb-section-heading-scale: 1.618;
+    --aisb-section-heading-xl: calc(var(--aisb-section-text-3xl) * var(--aisb-section-heading-scale));
+    --aisb-section-heading-lg: var(--aisb-section-text-3xl);
+    --aisb-section-heading-md: var(--aisb-section-text-2xl);
+    --aisb-section-heading-sm: var(--aisb-section-text-xl);
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
+import '../../../styles/sections/hero.css';
 
 function HeroPreview({ content }) {
   const {
