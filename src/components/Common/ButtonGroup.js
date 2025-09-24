@@ -1,4 +1,5 @@
 import React from 'react';
+import AutocompleteInput from './AutocompleteInput';
 
 function ButtonGroup({ buttons = [], onChange }) {
   const handleAddButton = () => {
@@ -90,53 +91,50 @@ function ButtonGroup({ buttons = [], onChange }) {
               </div>
 
               <div className="aisb-button-group__item-content">
-                <div className="aisb-form-row">
-                  <div className="aisb-form-col">
-                    <label htmlFor={`button-text-${index}`}>Text</label>
-                    <input
-                      type="text"
-                      id={`button-text-${index}`}
-                      value={button.text || ''}
-                      onChange={(e) => handleUpdateButton(index, 'text', e.target.value)}
-                      placeholder="Button text"
-                    />
-                  </div>
-                  <div className="aisb-form-col">
-                    <label htmlFor={`button-url-${index}`}>URL</label>
-                    <input
-                      type="text"
-                      id={`button-url-${index}`}
-                      value={button.url || ''}
-                      onChange={(e) => handleUpdateButton(index, 'url', e.target.value)}
-                      placeholder="https://..."
-                    />
-                  </div>
+                <div className="aisb-form-group">
+                  <label htmlFor={`button-text-${index}`}>Text</label>
+                  <input
+                    type="text"
+                    id={`button-text-${index}`}
+                    value={button.text || ''}
+                    onChange={(e) => handleUpdateButton(index, 'text', e.target.value)}
+                    placeholder="Button text"
+                  />
+                </div>
+                
+                <div className="aisb-form-group">
+                  <AutocompleteInput
+                    id={`button-url-${index}`}
+                    label="URL"
+                    value={button.url || ''}
+                    onChange={(value) => handleUpdateButton(index, 'url', value)}
+                    placeholder="Search for page or enter URL..."
+                  />
                 </div>
 
-                <div className="aisb-form-row">
-                  <div className="aisb-form-col">
-                    <label htmlFor={`button-style-${index}`}>Style</label>
-                    <select
-                      id={`button-style-${index}`}
-                      value={button.style || 'primary'}
-                      onChange={(e) => handleUpdateButton(index, 'style', e.target.value)}
-                    >
-                      <option value="primary">Primary</option>
-                      <option value="secondary">Secondary</option>
-                      <option value="ghost">Ghost</option>
-                    </select>
-                  </div>
-                  <div className="aisb-form-col">
-                    <label htmlFor={`button-target-${index}`}>Target</label>
-                    <select
-                      id={`button-target-${index}`}
-                      value={button.target || '_self'}
-                      onChange={(e) => handleUpdateButton(index, 'target', e.target.value)}
-                    >
-                      <option value="_self">Same Window</option>
-                      <option value="_blank">New Window</option>
-                    </select>
-                  </div>
+                <div className="aisb-form-group">
+                  <label htmlFor={`button-style-${index}`}>Style</label>
+                  <select
+                    id={`button-style-${index}`}
+                    value={button.style || 'primary'}
+                    onChange={(e) => handleUpdateButton(index, 'style', e.target.value)}
+                  >
+                    <option value="primary">Primary</option>
+                    <option value="secondary">Secondary</option>
+                    <option value="ghost">Ghost</option>
+                  </select>
+                </div>
+                
+                <div className="aisb-form-group">
+                  <label htmlFor={`button-target-${index}`}>Target</label>
+                  <select
+                    id={`button-target-${index}`}
+                    value={button.target || '_self'}
+                    onChange={(e) => handleUpdateButton(index, 'target', e.target.value)}
+                  >
+                    <option value="_self">Same Window</option>
+                    <option value="_blank">New Window</option>
+                  </select>
                 </div>
               </div>
             </div>

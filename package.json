@@ -16,9 +16,12 @@
   "description": "Modern React-based section builder for WordPress",
   "dependencies": {
     "@wordpress/api-fetch": "^7.31.0",
+    "@wordpress/block-editor": "^14.10.0",
+    "@wordpress/blocks": "^13.31.0",
     "@wordpress/components": "^30.4.0",
     "@wordpress/data": "^10.31.0",
     "@wordpress/element": "^6.31.0",
+    "@wordpress/format-library": "^5.31.0",
     "@wordpress/i18n": "^6.4.0",
     "axios": "^1.12.2",
     "classnames": "^2.5.1",

@@ -1,132 +1,157 @@
 import React from 'react';
+import TabPanel from '../../Common/TabPanel';
 import ButtonGroup from '../../Common/ButtonGroup';
+import ToggleGroup from '../../Common/ToggleGroup';
+import MediaSelector from '../../Common/MediaSelector';
+import RichTextEditor from '../../Common/RichTextEditor';
 
 function HeroForm({ content, onChange }) {
   const handleChange = (field, value) => {
     onChange({ [field]: value });
   };
 
+  // Tab configuration
+  const tabs = [
+    {
+      id: 'content',
+      label: 'Content',
+      icon: 'edit',
+      content: (
+        <>
+          <div className="aisb-form-group">
+            <label htmlFor="eyebrow_heading" className="aisb-form-label">
+              Eyebrow Heading
+            </label>
+            <input
+              type="text"
+              id="eyebrow_heading"
+              className="aisb-form-input"
+              value={content.eyebrow_heading || ''}
+              onChange={(e) => handleChange('eyebrow_heading', e.target.value)}
+              placeholder="Small text above headline"
+            />
+          </div>
+
+          <div className="aisb-form-group">
+            <label htmlFor="heading" className="aisb-form-label">
+              Heading <span className="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="heading"
+              className="aisb-form-input"
+              value={content.heading || ''}
+              onChange={(e) => handleChange('heading', e.target.value)}
+              placeholder="Main headline"
+              required
+            />
+          </div>
+
+          <RichTextEditor
+            id="content"
+            label="Body Content"
+            value={content.content || ''}
+            onChange={(value) => handleChange('content', value)}
+            placeholder="Add your content here..."
+            rows={6}
+            help="Use the editor to format your content with headings, lists, and more."
+          />
+
+          <RichTextEditor
+            id="outro_content"
+            label="Outro Content"
+            value={content.outro_content || ''}
+            onChange={(value) => handleChange('outro_content', value)}
+            placeholder="Optional content after buttons..."
+            rows={3}
+            help="Additional content displayed after buttons"
+          />
+
+          <div className="aisb-form-group">
+            <ButtonGroup
+              buttons={content.buttons || []}
+              onChange={(buttons) => handleChange('buttons', buttons)}
+            />
+          </div>
+        </>
+      ),
+    },
+    {
+      id: 'layout',
+      label: 'Layout',
+      icon: 'layout',
+      content: (
+        <>
+          <ToggleGroup
+            label="Layout Variant"
+            value={content.layout_variant || 'content-left'}
+            onChange={(value) => handleChange('layout_variant', value)}
+            options={[
+              { 
+                value: 'content-left', 
+                label: 'Left', 
+                icon: 'align-left',
+                tooltip: 'Content on the left, media on the right'
+              },
+              { 
+                value: 'center', 
+                label: 'Center', 
+                icon: 'align-center',
+                tooltip: 'Centered content and media'
+              },
+              { 
+                value: 'content-right', 
+                label: 'Right', 
+                icon: 'align-right',
+                tooltip: 'Content on the right, media on the left'
+              },
+            ]}
+          />
+
+          <MediaSelector
+            mediaType={content.media_type || 'none'}
+            onMediaTypeChange={(value) => handleChange('media_type', value)}
+            imageUrl={content.featured_image}
+            onImageChange={(value) => handleChange('featured_image', value)}
+            videoUrl={content.video_url}
+            onVideoChange={(value) => handleChange('video_url', value)}
+          />
+        </>
+      ),
+    },
+    {
+      id: 'style',
+      label: 'Style',
+      icon: 'admin-appearance',
+      content: (
+        <>
+          <ToggleGroup
+            label="Theme Variant"
+            value={content.theme_variant || 'light'}
+            onChange={(value) => handleChange('theme_variant', value)}
+            options={[
+              { 
+                value: 'light', 
+                label: 'Light', 
+                icon: 'visibility',
+                tooltip: 'Light background with dark text'
+              },
+              { 
+                value: 'dark', 
+                label: 'Dark', 
+                icon: 'hidden',
+                tooltip: 'Dark background with light text'
+              },
+            ]}
+          />
+        </>
+      ),
+    },
+  ];
+
   return (
     <div className="aisb-form">
-      <div className="aisb-form-group">
-        <label htmlFor="eyebrow_heading">Eyebrow Heading</label>
-        <input
-          type="text"
-          id="eyebrow_heading"
-          value={content.eyebrow_heading || ''}
-          onChange={(e) => handleChange('eyebrow_heading', e.target.value)}
-          placeholder="Small text above headline"
-        />
-      </div>
-
-      <div className="aisb-form-group">
-        <label htmlFor="heading">
-          Heading <span className="required">*</span>
-        </label>
-        <input
-          type="text"
-          id="heading"
-          value={content.heading || ''}
-          onChange={(e) => handleChange('heading', e.target.value)}
-          placeholder="Main headline"
-          required
-        />
-      </div>
-
-      <div className="aisb-form-group">
-        <label htmlFor="content">Body Content</label>
-        <textarea
-          id="content"
-          value={content.content || ''}
-          onChange={(e) => handleChange('content', e.target.value)}
-          placeholder="Add your content here..."
-          rows={6}
-        />
-        <small>HTML is supported. Content will be sanitized for security.</small>
-      </div>
-
-      <div className="aisb-form-group">
-        <label htmlFor="outro_content">Outro Content</label>
-        <textarea
-          id="outro_content"
-          value={content.outro_content || ''}
-          onChange={(e) => handleChange('outro_content', e.target.value)}
-          placeholder="Optional content after buttons..."
-          rows={3}
-        />
-        <small>Additional content displayed after buttons</small>
-      </div>
-
-      <div className="aisb-form-group">
-        <label htmlFor="theme_variant">Theme Variant</label>
-        <select
-          id="theme_variant"
-          value={content.theme_variant || 'light'}
-          onChange={(e) => handleChange('theme_variant', e.target.value)}
-        >
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </div>
-
-      <div className="aisb-form-group">
-        <label htmlFor="layout_variant">Layout Variant</label>
-        <select
-          id="layout_variant"
-          value={content.layout_variant || 'content-left'}
-          onChange={(e) => handleChange('layout_variant', e.target.value)}
-        >
-          <option value="content-left">Content Left</option>
-          <option value="content-right">Content Right</option>
-          <option value="center">Center</option>
-        </select>
-      </div>
-
-      <div className="aisb-form-group">
-        <label htmlFor="media_type">Media Type</label>
-        <select
-          id="media_type"
-          value={content.media_type || 'none'}
-          onChange={(e) => handleChange('media_type', e.target.value)}
-        >
-          <option value="none">None</option>
-          <option value="image">Image</option>
-          <option value="video">Video</option>
-        </select>
-      </div>
-
-      {content.media_type === 'image' && (
-        <div className="aisb-form-group">
-          <label htmlFor="featured_image">Featured Image URL</label>
-          <input
-            type="text"
-            id="featured_image"
-            value={content.featured_image || ''}
-            onChange={(e) => handleChange('featured_image', e.target.value)}
-            placeholder="Image URL or media library ID"
-          />
-        </div>
-      )}
-
-      {content.media_type === 'video' && (
-        <div className="aisb-form-group">
-          <label htmlFor="video_url">Video URL</label>
-          <input
-            type="text"
-            id="video_url"
-            value={content.video_url || ''}
-            onChange={(e) => handleChange('video_url', e.target.value)}
-            placeholder="YouTube or Vimeo URL"
-          />
-        </div>
-      )}
-
-      <div className="aisb-form-group">
-        <ButtonGroup
-          buttons={content.buttons || []}
-          onChange={(buttons) => handleChange('buttons', buttons)}
-        />
-      </div>
+      <TabPanel tabs={tabs} defaultTab="content" />
     </div>
   );
 }

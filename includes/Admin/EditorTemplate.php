@@ -217,6 +217,9 @@ class EditorTemplate {
     // Print scripts
     wp_print_scripts();
     
+    // Print media templates (required for Media Library modal)
+    wp_print_media_templates();
+    
     // Add validation tests in development
     if (defined('WP_DEBUG') && WP_DEBUG) {
         $this->add_validation_tests();

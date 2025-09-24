@@ -4,7 +4,7 @@ import HeroPreview from '../Sections/Hero/HeroPreview';
 import FeaturesPreview from '../Sections/Features/FeaturesPreview';
 
 function Canvas() {
-  const { sections, setCurrentSection } = useEditor();
+  const { sections, currentSectionIndex, setCurrentSection } = useEditor();
 
   if (sections.length === 0) {
     return (
@@ -23,8 +23,9 @@ function Canvas() {
         {sections.map((section, index) => (
           <div
             key={section.id}
-            className="aisb-canvas__section"
+            className={`aisb-canvas__section ${index === currentSectionIndex ? 'is-selected' : ''}`}
             onClick={() => setCurrentSection(index)}
+            title="Click to edit this section"
           >
             {section.type === 'hero' && (
               <HeroPreview content={section.content} />

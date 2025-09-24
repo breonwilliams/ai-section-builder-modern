@@ -5,23 +5,56 @@ import FeaturesForm from '../Sections/Features/FeaturesForm';
 import Icon from '../Common/Icon';
 
 function LeftSidebar() {
-  const { addSection, sections, currentSectionIndex, updateSection } = useEditor();
+  const { addSection, sections, currentSectionIndex, updateSection, setCurrentSection } = useEditor();
+  const [showSectionList, setShowSectionList] = React.useState(false);
 
   const handleAddSection = (type) => {
     addSection(type);
+    setShowSectionList(false);
   };
+
+  // Reset to edit view when section changes
+  React.useEffect(() => {
+    if (currentSectionIndex !== null && currentSectionIndex >= 0) {
+      setShowSectionList(false);
+    }
+  }, [currentSectionIndex]);
 
   const currentSection = sections[currentSectionIndex];
 
+  // Show section list if no current section or user clicked back
+  const shouldShowSectionList = !currentSection || showSectionList;
+
   return (
     <div className="aisb-left-sidebar">
-      <div className="aisb-sidebar-tabs">
-        <button className="aisb-tab active">Add Section</button>
-        {currentSection && <button className="aisb-tab">Edit Section</button>}
+      <div className="aisb-sidebar-header">
+        {currentSection && !showSectionList && (
+          <button 
+            className="aisb-back-to-sections"
+            onClick={() => setShowSectionList(true)}
+            title="Back to section list"
+          >
+            <Icon name="arrow-left" size="small" />
+          </button>
+        )}
+        <div className="aisb-sidebar-title">
+          {shouldShowSectionList ? (
+            <span>Add Section</span>
+          ) : (
+            <>
+              <span className="aisb-sidebar-title__type">
+                {currentSection?.type.charAt(0).toUpperCase() + currentSection?.type.slice(1)}
+              </span>
+              <span className="aisb-sidebar-title__name">
+                {currentSection?.content.heading || 'Untitled'}
+              </span>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="aisb-sidebar-content">
-        {!currentSection ? (
+        {shouldShowSectionList ? (
           <div className="aisb-section-library">
             <h3>Available Sections</h3>
             <div className="aisb-section-grid">
@@ -53,7 +86,6 @@ function LeftSidebar() {
           </div>
         ) : (
           <div className="aisb-section-form">
-            <h3>Edit {currentSection.type} Section</h3>
             {currentSection.type === 'hero' && (
               <HeroForm
                 content={currentSection.content}
