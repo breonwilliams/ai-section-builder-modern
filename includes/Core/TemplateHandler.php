@@ -14,6 +14,12 @@ namespace AISB\Modern\Core;
 class TemplateHandler {
     
     /**
+     * Theme compatibility handler
+     * @var ThemeCompatibility
+     */
+    private $theme_compatibility;
+    
+    /**
      * Initialize hooks
      */
     public function init() {
@@ -23,8 +29,11 @@ class TemplateHandler {
         // Add body classes for styling
         add_filter('body_class', [$this, 'add_body_class']);
         
-        // Hide theme's page title when our templates are active
-        add_action('wp_head', [$this, 'add_template_styles']);
+        // Initialize theme compatibility system
+        $this->theme_compatibility = new ThemeCompatibility();
+        $this->theme_compatibility->init();
+        
+        // NO CSS HACKS - Template should handle layout, not CSS overrides
     }
     
     /**
@@ -120,51 +129,4 @@ class TemplateHandler {
         return $classes;
     }
     
-    /**
-     * Add styles to hide theme elements when needed
-     * Only for fullwidth mode - canvas mode doesn't need this
-     */
-    public function add_template_styles() {
-        if (!is_singular()) {
-            return;
-        }
-        
-        $post_id = get_the_ID();
-        $sections = get_post_meta($post_id, '_aisb_sections', true);
-        if (empty($sections)) {
-            return;
-        }
-        
-        $display_mode = get_post_meta($post_id, '_aisb_display_mode', true);
-        
-        // Only add styles for fullwidth mode
-        if ($display_mode === 'fullwidth') {
-            ?>
-            <style id="aisb-template-styles">
-                /* Hide theme's page title in fullwidth mode */
-                .aisb-mode-fullwidth .entry-header,
-                .aisb-mode-fullwidth .page-header,
-                .aisb-mode-fullwidth h1.entry-title {
-                    display: none;
-                }
-                
-                /* Ensure full width wrapper takes full viewport width */
-                .aisb-fullwidth-wrapper {
-                    width: 100vw;
-                    position: relative;
-                    left: 50%;
-                    right: 50%;
-                    margin-left: -50vw;
-                    margin-right: -50vw;
-                }
-                
-                /* Ensure our sections display properly */
-                .aisb-section {
-                    width: 100%;
-                    position: relative;
-                }
-            </style>
-            <?php
-        }
-    }
 }

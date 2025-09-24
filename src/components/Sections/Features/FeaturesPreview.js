@@ -1,5 +1,6 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
+import '../../../styles/tokens/section-tokens.css';
 import '../../../styles/sections/features.css';
 
 function FeaturesPreview({ content }) {
@@ -64,22 +65,6 @@ function FeaturesPreview({ content }) {
                 dangerouslySetInnerHTML={{ __html: sanitizedContent }}
               />
             )}
-
-            {buttons && buttons.length > 0 && (
-              <div className="aisb-features__buttons">
-                {buttons.map((button, index) => (
-                  <a
-                    key={index}
-                    href={button.url || '#'}
-                    className={`aisb-btn aisb-btn-${button.style || 'primary'}`}
-                    target={button.target || '_self'}
-                    rel={button.target === '_blank' ? 'noopener noreferrer' : ''}
-                  >
-                    {button.text || 'Button'}
-                  </a>
-                ))}
-              </div>
-            )}
           </div>
 
           {media_type !== 'none' && (
@@ -117,10 +102,24 @@ function FeaturesPreview({ content }) {
                       title="Video"
                     />
                   );
+                } else if (video_url.match(/\.(mp4|webm|ogg)$/i) || video_url.includes('/wp-content/')) {
+                  // Direct video file (from Media Library or external)
+                  return (
+                    <video 
+                      className="aisb-features__video" 
+                      controls 
+                      preload="metadata"
+                    >
+                      <source src={video_url} type="video/mp4" />
+                      <source src={video_url} type="video/webm" />
+                      <source src={video_url} type="video/ogg" />
+                      Your browser does not support the video tag.
+                    </video>
+                  );
                 } else {
                   return (
                     <div className="aisb-features__video-placeholder">
-                      <p>Invalid video URL. Please use YouTube or Vimeo.</p>
+                      <p>Invalid video URL. Please use YouTube, Vimeo, or select from Media Library.</p>
                     </div>
                   );
                 }
@@ -132,40 +131,46 @@ function FeaturesPreview({ content }) {
         {/* Feature cards grid */}
         {cards && cards.length > 0 && (
           <div className="aisb-features__grid">
-            {cards.map((card, index) => (
-              <div key={index} className="aisb-features__item">
-                {card.image && (
-                  <div className="aisb-features__item-image-wrapper">
-                    <img
-                      src={card.image}
-                      alt={card.heading || ''}
-                      className="aisb-features__item-image"
-                    />
+            {cards.map((card, index) => {
+              const sanitizedCardContent = DOMPurify.sanitize(card.content || '');
+              return (
+                <div key={index} className="aisb-features__item">
+                  {card.image && (
+                    <div className="aisb-features__item-image-wrapper">
+                      <img
+                        src={card.image}
+                        alt={card.heading || ''}
+                        className="aisb-features__item-image"
+                      />
+                    </div>
+                  )}
+                  
+                  <div className="aisb-features__item-content">
+                    {card.heading && (
+                      <h3 className="aisb-features__item-title">{card.heading}</h3>
+                    )}
+                    
+                    {sanitizedCardContent && (
+                      <div 
+                        className="aisb-features__item-description"
+                        dangerouslySetInnerHTML={{ __html: sanitizedCardContent }}
+                      />
+                    )}
+                    
+                    {card.link && card.link_text && (
+                      <a
+                        href={card.link}
+                        className="aisb-features__item-link"
+                        target={card.link_target || '_self'}
+                        rel={card.link_target === '_blank' ? 'noopener noreferrer' : ''}
+                      >
+                        {card.link_text} →
+                      </a>
+                    )}
                   </div>
-                )}
-                
-                <div className="aisb-features__item-content">
-                  {card.heading && (
-                    <h3 className="aisb-features__item-title">{card.heading}</h3>
-                  )}
-                  
-                  {card.content && (
-                    <p className="aisb-features__item-description">{card.content}</p>
-                  )}
-                  
-                  {card.link && (
-                    <a
-                      href={card.link}
-                      className="aisb-features__item-link"
-                      target={card.link_target || '_self'}
-                      rel={card.link_target === '_blank' ? 'noopener noreferrer' : ''}
-                    >
-                      {card.link_text || 'Learn More'} →
-                    </a>
-                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
 
@@ -174,6 +179,23 @@ function FeaturesPreview({ content }) {
             className="aisb-features__outro"
             dangerouslySetInnerHTML={{ __html: sanitizedOutro }}
           />
+        )}
+
+        {/* Buttons - positioned after outro */}
+        {buttons && buttons.length > 0 && (
+          <div className="aisb-features__buttons">
+            {buttons.map((button, index) => (
+              <a
+                key={index}
+                href={button.url || '#'}
+                className={`aisb-btn aisb-btn-${button.style || 'primary'}`}
+                target={button.target || '_self'}
+                rel={button.target === '_blank' ? 'noopener noreferrer' : ''}
+              >
+                {button.text || 'Button'}
+              </a>
+            ))}
+          </div>
         )}
       </div>
     </section>

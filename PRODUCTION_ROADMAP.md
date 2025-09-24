@@ -28,10 +28,34 @@ AI Section Builder is a **content acceleration system** that transforms Word doc
 - No visual rhythm system (light/dark/accent rotation)
 - Field names inconsistent between PHP and React
 
-#### 3. **Template System Concerns**
+#### 3. **Template System Concerns** 🔴 CRITICAL
 - Still using some CSS overrides in `add_template_styles()`
 - The fullwidth wrapper uses CSS hacks (negative margins)
 - Should use pure template approach
+
+**❌ NEVER DO THIS (Current Bad Practices to Remove):**
+```css
+/* These CSS hacks MUST be removed: */
+.aisb-section { 
+    width: 100vw !important;     /* WRONG - breaks layouts */
+    margin-left: -50vw !important; /* WRONG - CSS hack */
+    left: 50% !important;         /* WRONG - positioning hack */
+}
+
+/* Using !important to override themes: */
+.entry-content { 
+    max-width: none !important;   /* WRONG - fighting theme */
+}
+```
+
+**✅ CORRECT APPROACH (Use Templates Only):**
+```php
+// Use WordPress template hierarchy properly
+add_filter('template_include', [$this, 'load_canvas_template'], 999);
+
+// Let WordPress handle the layout
+// Don't fight the theme with CSS
+```
 
 #### 4. **AI Foundation Not Ready**
 - No standardized data structure for sections
@@ -75,12 +99,20 @@ AI Section Builder is a **content acceleration system** that transforms Word doc
 - [ ] Ensure consistency between editor and frontend
 - **TEST**: Save and load data correctly
 
-#### Step 1.3: Fix Template System
-- [ ] Remove CSS override approach from `add_template_styles()`
-- [ ] Implement proper WordPress template structure
+#### Step 1.3: Fix Template System 🔴 CRITICAL
+- [ ] Remove ALL CSS override approaches from `add_template_styles()`
+- [ ] Delete any CSS with `width: 100vw`, negative margins, or `!important`
+- [ ] Implement proper WordPress template structure only
+- [ ] Use `template_include` filter correctly
 - [ ] Create theme compatibility detection
-- [ ] Test with top 5 themes
-- **TEST**: Verify no CSS hacks needed
+- [ ] Test with these 5 specific themes:
+  - Twenty Twenty-Four (latest default)
+  - Astra (most popular free)
+  - GeneratePress (developer favorite)
+  - OceanWP (highly customizable)
+  - Kadence (modern architecture)
+- **TEST**: Verify NO CSS hacks needed on ANY theme
+- **TEST**: Ensure sections display full-width without CSS tricks
 
 #### Step 1.4: Visual Rhythm System
 - [ ] Implement theme variant rotation (light→dark→accent)

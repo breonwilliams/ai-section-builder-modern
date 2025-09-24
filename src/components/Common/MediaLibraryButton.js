@@ -30,44 +30,48 @@ function MediaLibraryButton({
       return;
     }
 
-    // Create or reuse the media frame
-    if (!frameRef.current) {
-      const fileType = type === 'video' ? 'video' : 'image';
-      
-      frameRef.current = window.wp.media({
-        title: type === 'video' ? 'Select Video' : 'Select Image',
-        button: {
-          text: type === 'video' ? 'Use this video' : 'Use this image',
-        },
-        library: {
-          type: fileType,
-        },
-        multiple: false,
-      });
-
-      // When media is selected
-      frameRef.current.on('select', function() {
-        const attachment = frameRef.current.state().get('selection').first().toJSON();
-        
-        // Pass the selected media to the parent component
-        if (onSelect) {
-          onSelect({
-            id: attachment.id,
-            url: attachment.url,
-            title: attachment.title,
-            alt: attachment.alt,
-            caption: attachment.caption,
-            description: attachment.description,
-            width: attachment.width,
-            height: attachment.height,
-            sizes: attachment.sizes,
-            type: attachment.type,
-            subtype: attachment.subtype,
-            mime: attachment.mime,
-          });
-        }
-      });
+    // Always create a new frame to ensure fresh selection
+    // Clean up old frame if it exists
+    if (frameRef.current) {
+      frameRef.current.off();
+      frameRef.current = null;
     }
+
+    const fileType = type === 'video' ? 'video' : 'image';
+    
+    frameRef.current = window.wp.media({
+      title: type === 'video' ? 'Select Video' : 'Select Image',
+      button: {
+        text: type === 'video' ? 'Use this video' : 'Use this image',
+      },
+      library: {
+        type: fileType,
+      },
+      multiple: false,
+    });
+
+    // When media is selected
+    frameRef.current.on('select', function() {
+      const attachment = frameRef.current.state().get('selection').first().toJSON();
+      
+      // Pass the selected media to the parent component
+      if (onSelect) {
+        onSelect({
+          id: attachment.id,
+          url: attachment.url,
+          title: attachment.title,
+          alt: attachment.alt,
+          caption: attachment.caption,
+          description: attachment.description,
+          width: attachment.width,
+          height: attachment.height,
+          sizes: attachment.sizes,
+          type: attachment.type,
+          subtype: attachment.subtype,
+          mime: attachment.mime,
+        });
+      }
+    });
 
     // Open the media frame
     frameRef.current.open();

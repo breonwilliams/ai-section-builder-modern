@@ -50,6 +50,10 @@
   max-width: 800px;
 }
 
+.aisb-section--center .aisb-hero__buttons {
+  justify-content: center;
+}
+
 /* Content Area */
 .aisb-hero__content {
   display: flex;
@@ -126,43 +130,56 @@
 .aisb-btn-primary {
   background: var(--aisb-color-primary);
   color: var(--aisb-color-text-inverse);
+  border: 2px solid var(--aisb-color-primary);
 }
 
 .aisb-btn-primary:hover {
   background: var(--aisb-color-primary-hover);
-  box-shadow: var(--aisb-section-shadow-lg);
+  color: var(--aisb-color-text-inverse) !important;
+  border-color: var(--aisb-color-primary-hover);
 }
 
 /* Secondary Button */
 .aisb-btn-secondary {
   background: var(--aisb-transparent, transparent);
   color: var(--aisb-color-primary);
-  border-color: var(--aisb-color-primary);
+  border: 2px solid var(--aisb-color-primary);
 }
 
 .aisb-btn-secondary:hover {
   background: var(--aisb-color-primary);
-  color: var(--aisb-color-text-inverse);
+  color: var(--aisb-color-text-inverse) !important;
+  border-color: var(--aisb-color-primary);
 }
 
 /* Ghost Button */
 .aisb-btn-ghost {
   background: var(--aisb-transparent, transparent);
   color: var(--section-text, var(--aisb-color-text));
-  border-color: var(--aisb-color-border);
+  border: 2px solid var(--section-text, var(--aisb-color-text));
 }
 
 .aisb-btn-ghost:hover {
-  border-color: var(--aisb-color-primary);
-  color: var(--aisb-color-primary);
+  background: var(--section-text, var(--aisb-color-text));
+  color: var(--section-bg, var(--aisb-color-background)) !important;
+  border-color: var(--section-text, var(--aisb-color-text));
 }
 
 /* Outro Content */
 .aisb-hero__outro {
   margin-top: var(--aisb-section-space-lg);
-  font-size: var(--aisb-section-text-sm);
+  font-family: var(--aisb-section-font-body, var(--aisb-section-font-family));
+  font-size: var(--aisb-section-text-lg);
+  line-height: var(--aisb-section-leading-relaxed);
   color: var(--section-outro, var(--aisb-color-text-secondary));
-  opacity: 0.9;
+}
+
+.aisb-hero__outro p {
+  margin: 0 0 var(--aisb-section-space-md) 0;
+}
+
+.aisb-hero__outro p:last-child {
+  margin-bottom: 0;
 }
 
 /* Media */
@@ -195,7 +212,7 @@
   background: var(--aisb-color-background-alt);
   border-radius: var(--aisb-section-radius-image, var(--aisb-section-radius-lg));
   color: var(--aisb-color-text-muted);
-  font-size: var(--aisb-section-text-sm);
+  font-size: var(--aisb-section-text-base);
 }
 
 /* Theme Variants using CSS custom properties */
@@ -213,6 +230,37 @@
   --section-heading: var(--aisb-color-dark-text);
   --section-body: var(--aisb-color-dark-text);
   --section-outro: var(--aisb-color-dark-text);
+}
+
+/* Dark Mode Button Overrides */
+.aisb-section--dark .aisb-btn-primary {
+  color: var(--aisb-color-text-inverse);
+}
+
+.aisb-section--dark .aisb-btn-primary:hover {
+  color: var(--aisb-color-text-inverse) !important;
+}
+
+.aisb-section--dark .aisb-btn-secondary {
+  color: var(--aisb-color-primary-light);
+  border-color: var(--aisb-color-primary-light);
+}
+
+.aisb-section--dark .aisb-btn-secondary:hover {
+  background: var(--aisb-color-primary-light);
+  color: var(--aisb-color-dark-background) !important;
+  border-color: var(--aisb-color-primary-light);
+}
+
+.aisb-section--dark .aisb-btn-ghost {
+  color: var(--aisb-color-dark-text);
+  border-color: var(--aisb-color-dark-text);
+}
+
+.aisb-section--dark .aisb-btn-ghost:hover {
+  background: var(--aisb-color-dark-text);
+  color: var(--aisb-color-dark-background) !important;
+  border-color: var(--aisb-color-dark-text);
 }
 
 /* Mobile Optimizations */

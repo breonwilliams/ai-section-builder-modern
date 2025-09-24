@@ -1,11 +1,12 @@
 # Critical Implementation Analysis Instructions for AI Section Builder Modern
 
 ## PLUGIN VISION & AI CONTEXT
-This plugin is building toward an **AI-powered page builder** where users can:
-1. **Generate entire pages from text prompts** - "Create a SaaS landing page for project management software"
-2. **AI assembles sections intelligently** - Hero → Features → Testimonials → FAQ → CTA
-3. **Each section is customized** - AI fills in relevant content, images, and styling
-4. **Global settings apply automatically** - Brand colors, fonts, spacing preferences
+This plugin is a **content acceleration system** that:
+1. **Transforms Word documents into web pages** - Upload .docx → Beautiful page in 60 seconds
+2. **AI maps document content to sections** - Headings → Hero, Lists → Features, Q&A → FAQ
+3. **Works WITH any WordPress setup** - Not another page builder, but a universal tool
+4. **Handles bulk transformation** - Process hundreds of documents at once
+5. **Global settings apply automatically** - Brand colors, fonts, spacing preferences
 
 **Why This Matters for Current Development:**
 - **Sections are modular building blocks** - AI will compose them in various combinations
@@ -139,13 +140,40 @@ After analyzing both codebases, provide:
    - Design validation points
    - User workflow testing steps
 
+## 🔴 CRITICAL MISTAKES TO AVOID
+
+### CSS Hacks That MUST NOT Be Used:
+```css
+/* ❌ NEVER DO THIS - These break themes: */
+.aisb-section { 
+    width: 100vw !important;        /* WRONG - breaks responsive */
+    margin-left: -50vw !important;  /* WRONG - negative margin hack */
+    left: 50% !important;            /* WRONG - positioning hack */
+}
+
+.entry-content {
+    max-width: none !important;      /* WRONG - fighting theme */
+}
+```
+
+### ✅ CORRECT Template Approach:
+```php
+// Use WordPress template system properly
+add_filter('template_include', [$this, 'load_canvas_template'], 999);
+
+// Let WordPress handle layout - don't fight with CSS
+// If full-width needed, use proper template file
+```
+
 ## CRITICAL REMINDERS
 
 - **Frontend rendering is completely broken** - This is the #1 priority
+- **NO CSS HACKS** - Use WordPress templates properly, no !important overrides
 - **Server-side PHP rendering is required** - React components won't work on frontend
-- **Design must match reference** - Users expect consistency
-- **Don't break what's working** - Keep React editor, REST API, modern JavaScript
-- **Test on actual WordPress pages** - Not just in the editor
+- **Design must match reference** - Exact sizes: Hero 32px→48px, Features borders 1px
+- **Test with these 5 themes** - Twenty Twenty-Four, Astra, GeneratePress, OceanWP, Kadence
+- **STOP AND TEST after each change** - Don't proceed if tests fail
+- **Document processing focus** - This is for Word docs → web pages, not just AI prompts
 
 ## FILES TO EXAMINE CAREFULLY
 

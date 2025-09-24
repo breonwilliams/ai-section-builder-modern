@@ -156,8 +156,8 @@
 
 /* Individual Card - Reusable pattern */
 .aisb-features__item {
-  background: var(--aisb-color-surface);
-  border: 1px solid var(--aisb-color-border);
+  background: var(--section-surface, var(--aisb-color-surface));
+  border: 1px solid var(--section-border, var(--aisb-color-border));
   border-radius: 8px;
   overflow: hidden;
   height: 100%;
@@ -237,28 +237,48 @@
   justify-content: flex-end;
 }
 
-/* Buttons */
+/* Link Hover States */
+.aisb-features__item-link:hover {
+  color: var(--aisb-color-primary-hover) !important;
+  text-decoration: underline;
+}
+
+/* Dark Mode Link Styles */
+.aisb-section--dark .aisb-features__item-link {
+  color: var(--aisb-color-primary-light);
+}
+
+.aisb-section--dark .aisb-features__item-link:hover {
+  color: var(--aisb-color-primary) !important;
+  text-decoration: underline;
+}
+
+/* Buttons - Always centered, now after outro */
 .aisb-features__buttons {
   display: flex;
   flex-wrap: wrap;
   gap: var(--aisb-section-space-md);
   margin-top: var(--aisb-section-space-lg);
-}
-
-.aisb-section--center .aisb-features__buttons {
-  justify-content: center;
+  justify-content: center; /* Always centered */
 }
 
 /* Outro */
 .aisb-features__outro {
-  margin-top: calc(var(--aisb-section-space-2xl) * var(--aisb-golden-ratio, 1.618));
+  margin-top: var(--aisb-section-space-xl);
   text-align: center;
-  font-size: var(--aisb-section-text-sm);
+  font-family: var(--aisb-section-font-body, var(--aisb-section-font-family));
+  font-size: var(--aisb-section-text-lg);
+  line-height: var(--aisb-section-leading-relaxed);
   color: var(--section-outro, var(--aisb-color-text-secondary));
 }
 
+/* When outro is present, buttons have proper spacing after it */
+.aisb-features__outro + .aisb-features__buttons {
+  margin-top: var(--aisb-section-space-xl);
+}
+
 .aisb-features__outro p {
-  margin: 0 0 var(--aisb-section-space-sm) 0;
+  margin: 0 0 var(--aisb-section-space-md) 0;
 }
 
 .aisb-features__outro p:last-child {
@@ -269,6 +289,7 @@
 .aisb-section--light {
   --section-bg: var(--aisb-color-background);
   --section-surface: var(--aisb-color-surface);
+  --section-border: var(--aisb-color-border);
   --section-text: var(--aisb-color-text);
   --section-heading: var(--aisb-color-text);
   --section-body: var(--aisb-color-text-secondary);
@@ -278,6 +299,7 @@
 .aisb-section--dark {
   --section-bg: var(--aisb-color-dark-background);
   --section-surface: var(--aisb-color-dark-surface);
+  --section-border: var(--aisb-color-dark-border);
   --section-text: var(--aisb-color-dark-text);
   --section-heading: var(--aisb-color-dark-text);
   --section-body: var(--aisb-color-dark-text);

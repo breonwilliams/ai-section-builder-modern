@@ -2,7 +2,27 @@
 
 ## 🔴 CRITICAL ISSUE: Sections Are Not Displaying on Frontend
 
-The modern plugin is **completely missing the frontend rendering system**. Sections are saved to the database but **never displayed on the actual pages**. This document provides exact implementation instructions to fix this critical issue.
+The modern plugin is **completely missing the frontend rendering system**. Sections are saved to the database but **never displayed on the actual pages**. Additionally, any CSS hacks for layout MUST be removed.
+
+## ❌ DO NOT USE THESE CSS HACKS
+
+**Remove these immediately if they exist:**
+```css
+/* WRONG - These break theme compatibility: */
+.aisb-section { 
+    width: 100vw !important;        /* DELETE THIS */
+    margin-left: -50vw !important;  /* DELETE THIS */
+    left: 50% !important;            /* DELETE THIS */
+}
+
+/* WRONG - Fighting with theme: */
+.entry-content {
+    max-width: none !important;      /* DELETE THIS */
+    padding: 0 !important;           /* DELETE THIS */
+}
+```
+
+**Use WordPress templates properly instead - NO CSS overrides!**
 
 ## Problem Analysis
 
@@ -325,14 +345,26 @@ Fix:
 
 ## Testing Checklist
 
-After implementing:
+After implementing, test with THESE SPECIFIC THEMES:
 
+### Required Theme Tests:
+1. **Twenty Twenty-Four** - Latest WordPress default
+2. **Astra** - Most popular free theme
+3. **GeneratePress** - Developer favorite
+4. **OceanWP** - Highly customizable
+5. **Kadence** - Modern architecture
+
+### For Each Theme:
 1. **Create a test page** with sections in the editor
-2. **View the page on frontend** - Sections should display
-3. **Check responsive design** - Mobile and desktop should look correct
-4. **Test light/dark themes** - Both variants should work
-5. **Check media display** - Images and videos should render
-6. **Verify card layout** - Features cards should have borders and proper spacing
+2. **View the page on frontend** - Sections should display WITHOUT CSS hacks
+3. **Check for CSS conflicts** - No !important overrides should be needed
+4. **Verify full-width display** - Should work via template, not CSS tricks
+5. **Check responsive design** - Mobile (375px), Tablet (768px), Desktop (1440px)
+6. **Test light/dark themes** - Both variants should work
+7. **Check media display** - Images and videos should render
+8. **Verify card layout** - Features cards should have 1px borders and 24px/20px padding
+
+### STOP if any theme fails - Fix before proceeding!
 
 ## Critical Notes
 

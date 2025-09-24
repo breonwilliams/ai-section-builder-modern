@@ -1,4 +1,7 @@
 import React from 'react';
+import RichTextEditor from './RichTextEditor';
+import AutocompleteInput from './AutocompleteInput';
+import MediaLibraryButton from './MediaLibraryButton';
 
 function RepeaterField({ items = [], onChange, fields, itemLabel = 'Item' }) {
   const handleAddItem = () => {
@@ -77,7 +80,39 @@ function RepeaterField({ items = [], onChange, fields, itemLabel = 'Item' }) {
           </div>
         );
 
+      case 'richtext':
+        return (
+          <div key={field.name} className="aisb-form-group">
+            <RichTextEditor
+              id={fieldId}
+              label={field.label}
+              value={value}
+              onChange={(newValue) => handleUpdateItem(index, field.name, newValue)}
+              placeholder={field.placeholder}
+              rows={field.rows || 3}
+              help={field.help}
+            />
+          </div>
+        );
+
+
       case 'url':
+        // Check if this is a link field that needs autocomplete
+        if (field.useAutocomplete) {
+          return (
+            <div key={field.name} className="aisb-form-group">
+              <AutocompleteInput
+                id={fieldId}
+                label={field.label}
+                value={value}
+                onChange={(newValue) => handleUpdateItem(index, field.name, newValue)}
+                placeholder={field.placeholder || 'Search for page or enter URL...'}
+              />
+              {field.help && <small>{field.help}</small>}
+            </div>
+          );
+        }
+        
         return (
           <div key={field.name} className="aisb-form-group">
             <label htmlFor={fieldId}>
@@ -91,6 +126,67 @@ function RepeaterField({ items = [], onChange, fields, itemLabel = 'Item' }) {
               onChange={(e) => handleUpdateItem(index, field.name, e.target.value)}
               placeholder={field.placeholder || 'https://...'}
               required={field.required}
+            />
+            {field.help && <small>{field.help}</small>}
+          </div>
+        );
+      
+      case 'media':
+        return (
+          <div key={field.name} className="aisb-form-group">
+            <label className="aisb-form-label">
+              {field.label}
+              {field.required && <span className="required">*</span>}
+            </label>
+            
+            {!value ? (
+              <MediaLibraryButton
+                type="image"
+                onSelect={(media) => handleUpdateItem(index, field.name, media.url)}
+                className="aisb-media-selector__upload-button"
+                buttonText={field.buttonText || 'Select from Media Library'}
+                buttonIcon="format-image"
+              />
+            ) : (
+              <div className="aisb-media-preview">
+                <img src={value} alt="Preview" style={{ maxWidth: '100%', height: 'auto' }} />
+                <div className="aisb-media-preview__actions">
+                  <MediaLibraryButton
+                    type="image"
+                    onSelect={(media) => handleUpdateItem(index, field.name, media.url)}
+                    render={({ onClick }) => (
+                      <button 
+                        type="button"
+                        className="aisb-media-preview__change"
+                        onClick={onClick}
+                        title="Change Image"
+                      >
+                        <span className="dashicons dashicons-edit"></span>
+                      </button>
+                    )}
+                  />
+                  <button 
+                    type="button" 
+                    className="aisb-media-preview__remove"
+                    onClick={() => handleUpdateItem(index, field.name, '')}
+                    title="Remove Image"
+                  >
+                    <span className="dashicons dashicons-no-alt"></span>
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            <div className="aisb-media-selector__or-divider">
+              <span>OR</span>
+            </div>
+            
+            <input
+              type="text"
+              className="aisb-form-input"
+              value={value || ''}
+              onChange={(e) => handleUpdateItem(index, field.name, e.target.value)}
+              placeholder="Enter image URL directly"
             />
             {field.help && <small>{field.help}</small>}
           </div>
@@ -143,9 +239,6 @@ function RepeaterField({ items = [], onChange, fields, itemLabel = 'Item' }) {
           {items.map((item, index) => (
             <div key={index} className="aisb-repeater-field__item">
               <div className="aisb-repeater-field__item-header">
-                <span className="aisb-repeater-field__item-handle">
-                  <span className="dashicons dashicons-move"></span>
-                </span>
                 <span className="aisb-repeater-field__item-title">
                   {itemLabel} {index + 1}
                 </span>

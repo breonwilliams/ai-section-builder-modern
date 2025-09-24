@@ -9,7 +9,16 @@ function MediaSelector({
   videoUrl, 
   onVideoChange 
 }) {
-  const [videoSource, setVideoSource] = useState('youtube'); // 'youtube' or 'library'
+  // Determine initial video source based on current video URL
+  const getInitialVideoSource = () => {
+    if (!videoUrl) return 'youtube';
+    if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') || videoUrl.includes('vimeo.com')) {
+      return 'youtube';
+    }
+    return 'library';
+  };
+  
+  const [videoSource, setVideoSource] = useState(getInitialVideoSource)
   
   const mediaOptions = [
     { value: 'none', label: 'None', icon: 'no' },
@@ -24,9 +33,14 @@ function MediaSelector({
   };
 
   const handleVideoSelect = (media) => {
+    console.log('Video selected from library:', media);
     if (media.url) {
-      onVideoChange(media.url);
       setVideoSource('library');
+      // Force update by clearing then setting
+      onVideoChange('');
+      setTimeout(() => {
+        onVideoChange(media.url);
+      }, 0);
     }
   };
 

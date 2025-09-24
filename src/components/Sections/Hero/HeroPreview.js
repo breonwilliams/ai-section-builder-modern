@@ -1,5 +1,6 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
+import '../../../styles/tokens/section-tokens.css';
 import '../../../styles/sections/hero.css';
 
 function HeroPreview({ content }) {
@@ -118,10 +119,24 @@ function HeroPreview({ content }) {
                     title="Video"
                   />
                 );
+              } else if (video_url.match(/\.(mp4|webm|ogg)$/i) || video_url.includes('/wp-content/')) {
+                // Direct video file (from Media Library or external)
+                return (
+                  <video 
+                    className="aisb-hero__video" 
+                    controls 
+                    preload="metadata"
+                  >
+                    <source src={video_url} type="video/mp4" />
+                    <source src={video_url} type="video/webm" />
+                    <source src={video_url} type="video/ogg" />
+                    Your browser does not support the video tag.
+                  </video>
+                );
               } else {
                 return (
                   <div className="aisb-hero__video-placeholder">
-                    <p>Invalid video URL. Please use YouTube or Vimeo.</p>
+                    <p>Invalid video URL. Please use YouTube, Vimeo, or select from Media Library.</p>
                   </div>
                 );
               }

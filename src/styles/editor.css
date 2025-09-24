@@ -475,6 +475,30 @@
   border-radius: var(--aisb-editor-radius-sm);
 }
 
+/* Drag and Drop Styles for Sidebar */
+.aisb-section-item__drag-handle {
+  display: inline-flex;
+  margin-right: var(--aisb-editor-space-sm);
+  color: var(--aisb-editor-text-muted);
+  cursor: move;
+  cursor: grab;
+}
+
+.aisb-section-item__drag-handle:active {
+  cursor: grabbing;
+}
+
+.aisb-section-item.is-dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.aisb-section-item.is-drag-over {
+  border-color: var(--aisb-editor-accent);
+  background: var(--aisb-editor-accent-bg);
+  box-shadow: 0 0 0 2px rgba(147, 51, 234, 0.2);
+}
+
 /* =========================================
    Form Styles - Dark Theme
    ========================================= */
@@ -736,27 +760,7 @@
   display: block;
 }
 
-.aisb-media-preview__remove {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  background: rgba(0, 0, 0, 0.7);
-  border: none;
-  border-radius: 50%;
-  color: var(--aisb-editor-text-inverse);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--aisb-editor-transition-base);
-}
-
-.aisb-media-preview__remove:hover {
-  background: var(--aisb-editor-danger);
-}
+/* Removed duplicate .aisb-media-preview__remove styles - see combined styles below */
 
 /* WordPress Media Modal Fixes - More Specific Selectors */
 body.aisb-editor-active .media-modal {
@@ -875,7 +879,7 @@ body.aisb-editor-active .media-toolbar-primary input[type="search"],
   top: 8px;
   right: 8px;
   display: flex;
-  gap: 4px;
+  gap: 8px;
 }
 
 .aisb-media-preview__change,
@@ -896,6 +900,10 @@ body.aisb-editor-active .media-toolbar-primary input[type="search"],
 
 .aisb-media-preview__change:hover {
   background: var(--aisb-editor-accent);
+}
+
+.aisb-media-preview__remove:hover {
+  background: var(--aisb-editor-danger);
 }
 
 /* OR Divider */

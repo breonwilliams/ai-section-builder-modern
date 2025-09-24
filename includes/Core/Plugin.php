@@ -27,6 +27,7 @@ class Plugin {
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/API/RestAPI.php';
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/Assets.php';
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/Helpers.php';
+        require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/ThemeCompatibility.php';
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/TemplateHandler.php';
         require_once AISB_MODERN_PLUGIN_DIR . 'includes/Core/SectionRenderer.php';
     }

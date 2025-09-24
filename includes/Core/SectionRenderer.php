@@ -145,17 +145,6 @@ class SectionRenderer {
                         <?php if ($body): ?>
                             <div class="aisb-features__body"><?php echo $body; ?></div>
                         <?php endif; ?>
-                        
-                        <?php if (!empty($buttons)): ?>
-                            <div class="aisb-features__buttons">
-                                <?php foreach ($buttons as $button): ?>
-                                    <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
-                                       class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>">
-                                        <?php echo esc_html($button['text'] ?? 'Button'); ?>
-                                    </a>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php endif; ?>
                     </div>
                     
                     <?php if ($media_type !== 'none'): ?>
@@ -185,10 +174,12 @@ class SectionRenderer {
                                         <h3 class="aisb-features__item-title"><?php echo esc_html($card['heading']); ?></h3>
                                     <?php endif; ?>
                                     <?php if (!empty($card['content'])): ?>
-                                        <p class="aisb-features__item-description"><?php echo esc_html($card['content']); ?></p>
+                                        <div class="aisb-features__item-description"><?php echo wp_kses_post($card['content']); ?></div>
                                     <?php endif; ?>
-                                    <?php if (!empty($card['link_text']) && !empty($card['link_url'])): ?>
-                                        <a href="<?php echo esc_url($card['link_url']); ?>" class="aisb-features__item-link">
+                                    <?php if (!empty($card['link']) && !empty($card['link_text'])): ?>
+                                        <a href="<?php echo esc_url($card['link']); ?>" 
+                                           class="aisb-features__item-link"
+                                           target="<?php echo esc_attr($card['link_target'] ?? '_self'); ?>">
                                             <?php echo esc_html($card['link_text']); ?>
                                         </a>
                                     <?php endif; ?>
@@ -200,6 +191,17 @@ class SectionRenderer {
                 
                 <?php if ($outro): ?>
                     <div class="aisb-features__outro"><?php echo $outro; ?></div>
+                <?php endif; ?>
+                
+                <?php if (!empty($buttons)): ?>
+                    <div class="aisb-features__buttons">
+                        <?php foreach ($buttons as $button): ?>
+                            <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
+                               class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>">
+                                <?php echo esc_html($button['text'] ?? 'Button'); ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
                 <?php endif; ?>
             </div>
         </section>
@@ -225,6 +227,16 @@ class SectionRenderer {
         if (preg_match('/vimeo\.com\/(\d+)/', $url, $matches)) {
             $video_id = $matches[1];
             return '<iframe class="aisb-hero__video" src="https://player.vimeo.com/video/' . esc_attr($video_id) . '" frameborder="0" allowfullscreen></iframe>';
+        }
+        
+        // Direct video file (MP4, WebM, OGG, or WordPress Media Library)
+        if (preg_match('/\.(mp4|webm|ogg)$/i', $url) || strpos($url, '/wp-content/') !== false) {
+            return '<video class="aisb-hero__video" controls preload="metadata">' .
+                   '<source src="' . esc_url($url) . '" type="video/mp4">' .
+                   '<source src="' . esc_url($url) . '" type="video/webm">' .
+                   '<source src="' . esc_url($url) . '" type="video/ogg">' .
+                   'Your browser does not support the video tag.' .
+                   '</video>';
         }
         
         return '';
