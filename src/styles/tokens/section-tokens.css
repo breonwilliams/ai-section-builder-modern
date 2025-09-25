@@ -11,16 +11,17 @@
        These values are defaults - will be overridden by global settings
        ========================================= */
     
-    /* Primary Colors */
-    --aisb-color-primary: #2563eb;           /* User's primary brand color */
-    --aisb-color-primary-hover: #1d4ed8;     /* Darker shade for hover */
-    --aisb-color-primary-light: #60a5fa;     /* Lighter shade */
-    --aisb-color-primary-bg: rgba(37, 99, 235, 0.1);
+    /* Primary Colors - Blue */
+    --aisb-color-primary: #3B82F6;           /* Bright blue - professional and modern */
+    --aisb-color-primary-hover: #2563EB;     /* Darker blue for hover */
+    --aisb-color-primary-light: #60A5FA;     /* Lighter blue for dark mode */
+    --aisb-color-primary-bg: rgba(59, 130, 246, 0.1);
     
-    /* Secondary Colors */
-    --aisb-color-secondary: #1e40af;         /* User's secondary color */
-    --aisb-color-secondary-hover: #1e3a8a;
-    --aisb-color-secondary-light: #3b82f6;
+    /* Secondary Colors - Purple for harmony */
+    --aisb-color-secondary: #8B5CF6;         /* Purple - flows naturally with blue */
+    --aisb-color-secondary-hover: #7C3AED;   /* Darker purple for hover */
+    --aisb-color-secondary-light: #A78BFA;   /* Lighter purple for dark mode */
+    --aisb-color-secondary-bg: rgba(139, 92, 246, 0.1);
     
     /* Text Colors */
     --aisb-color-text: #1f2937;              /* Main text color */

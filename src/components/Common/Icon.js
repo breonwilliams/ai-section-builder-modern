@@ -18,6 +18,7 @@ const iconMap = {
   
   // Actions
   'add': 'dashicons-plus-alt2',
+  'plus': 'dashicons-plus-alt',
   'delete': 'dashicons-trash',
   'edit': 'dashicons-edit',
   'save': 'dashicons-saved',
@@ -40,6 +41,7 @@ const iconMap = {
   'align-right': 'dashicons-align-right',
   
   // UI
+  'arrow-left': 'dashicons-arrow-left-alt2',
   'chevron-up': 'dashicons-arrow-up-alt2',
   'chevron-down': 'dashicons-arrow-down-alt2',
   'chevron-left': 'dashicons-arrow-left-alt2',

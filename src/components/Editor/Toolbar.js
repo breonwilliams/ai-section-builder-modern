@@ -5,7 +5,7 @@ import ToggleSidebarsButton from '../Common/ToggleSidebarsButton';
 import ContentImporter from './ContentImporter';
 
 function Toolbar() {
-  const { saveSections, isDirty, isSaving } = useEditor();
+  const { saveSections, isDirty, isSaving, setCurrentSection } = useEditor();
   const [showImporter, setShowImporter] = useState(false);
 
   const handleSave = async () => {
@@ -19,6 +19,11 @@ function Toolbar() {
     }
   };
 
+  const handleGlobalSettings = () => {
+    // Placeholder for global settings
+    console.log('Global settings clicked - functionality to be implemented');
+  };
+
   // Get post data from WordPress
   const postTitle = window.aisbEditor?.postTitle || 'Untitled';
   const editPostUrl = window.aisbEditor?.editPostUrl;
@@ -27,6 +32,21 @@ function Toolbar() {
     <>
       <div className="aisb-toolbar">
         <div className="aisb-toolbar__left">
+          <button 
+            className="aisb-toolbar__icon-button"
+            onClick={() => setCurrentSection(null)}
+            title="Add new section"
+          >
+            <Icon name="plus" size="medium" />
+          </button>
+          <button 
+            className="aisb-toolbar__icon-button"
+            onClick={handleGlobalSettings}
+            title="Global settings"
+          >
+            <Icon name="settings" size="medium" />
+          </button>
+          <div className="aisb-toolbar__separator"></div>
           <div className="aisb-toolbar__post-info">
             <span className="aisb-toolbar__label">Editing:</span>
             <strong className="aisb-toolbar__title">{postTitle}</strong>

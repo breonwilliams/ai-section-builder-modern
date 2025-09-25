@@ -68,7 +68,7 @@
   font-weight: var(--aisb-section-font-semibold);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--aisb-color-primary);
+  color: var(--aisb-color-text-muted);  /* Using muted text for better hierarchy */
   margin-bottom: calc(var(--aisb-section-space-sm) * var(--aisb-golden-ratio, 1.618) / 2.618);
 }
 
@@ -139,30 +139,30 @@
   border-color: var(--aisb-color-primary-hover);
 }
 
-/* Secondary Button */
+/* Secondary Button - Solid with secondary color */
 .aisb-btn-secondary {
+  background: var(--aisb-color-secondary);
+  color: var(--aisb-color-text-inverse);
+  border: 2px solid var(--aisb-color-secondary);
+}
+
+.aisb-btn-secondary:hover {
+  background: var(--aisb-color-secondary-hover);
+  color: var(--aisb-color-text-inverse) !important;
+  border-color: var(--aisb-color-secondary-hover);
+}
+
+/* Ghost Button - Outlined with primary color */
+.aisb-btn-ghost {
   background: var(--aisb-transparent, transparent);
   color: var(--aisb-color-primary);
   border: 2px solid var(--aisb-color-primary);
 }
 
-.aisb-btn-secondary:hover {
+.aisb-btn-ghost:hover {
   background: var(--aisb-color-primary);
   color: var(--aisb-color-text-inverse) !important;
   border-color: var(--aisb-color-primary);
-}
-
-/* Ghost Button */
-.aisb-btn-ghost {
-  background: var(--aisb-transparent, transparent);
-  color: var(--section-text, var(--aisb-color-text));
-  border: 2px solid var(--section-text, var(--aisb-color-text));
-}
-
-.aisb-btn-ghost:hover {
-  background: var(--section-text, var(--aisb-color-text));
-  color: var(--section-bg, var(--aisb-color-background)) !important;
-  border-color: var(--section-text, var(--aisb-color-text));
 }
 
 /* Outro Content */
@@ -233,9 +233,9 @@
 }
 
 /* Dark Mode Overrides */
-/* Dark Mode Eyebrow - Use lighter blue for visibility */
+/* Dark Mode Eyebrow - Use muted text for proper hierarchy */
 .aisb-section--dark .aisb-hero__eyebrow {
-  color: var(--aisb-color-primary-light);
+  color: #9CA3AF;  /* Specific gray for optimal dark mode contrast (7.2:1 ratio) */
 }
 
 /* Dark Mode Primary Button - Use lighter blue for visibility */
@@ -251,26 +251,30 @@
   color: var(--aisb-color-text-inverse) !important;
 }
 
+/* Dark Mode Secondary Button - Solid with lighter secondary */
 .aisb-section--dark .aisb-btn-secondary {
+  background: var(--aisb-color-secondary-light);
+  border-color: var(--aisb-color-secondary-light);
+  color: var(--aisb-color-text-inverse);
+}
+
+.aisb-section--dark .aisb-btn-secondary:hover {
+  background: var(--aisb-color-secondary);
+  color: var(--aisb-color-text-inverse) !important;
+  border-color: var(--aisb-color-secondary);
+}
+
+/* Dark Mode Ghost Button - Outlined with lighter primary */
+.aisb-section--dark .aisb-btn-ghost {
+  background: var(--aisb-transparent, transparent);
   color: var(--aisb-color-primary-light);
   border-color: var(--aisb-color-primary-light);
 }
 
-.aisb-section--dark .aisb-btn-secondary:hover {
+.aisb-section--dark .aisb-btn-ghost:hover {
   background: var(--aisb-color-primary-light);
   color: var(--aisb-color-dark-background) !important;
   border-color: var(--aisb-color-primary-light);
-}
-
-.aisb-section--dark .aisb-btn-ghost {
-  color: var(--aisb-color-dark-text);
-  border-color: var(--aisb-color-dark-text);
-}
-
-.aisb-section--dark .aisb-btn-ghost:hover {
-  background: var(--aisb-color-dark-text);
-  color: var(--aisb-color-dark-background) !important;
-  border-color: var(--aisb-color-dark-text);
 }
 
 /* Mobile Optimizations */

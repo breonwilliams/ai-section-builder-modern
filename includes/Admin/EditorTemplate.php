@@ -134,9 +134,6 @@ class EditorTemplate {
     
     // Print styles
     wp_print_styles();
-    
-    // Inject global settings as CSS variables
-    $this->inject_global_settings_css();
     ?>
     
     <style>
@@ -228,39 +225,6 @@ class EditorTemplate {
 </body>
 </html><?php
     }
-    
-    /**
-     * Inject global settings as CSS variables
-     */
-    private function inject_global_settings_css() {
-        $settings = get_option('aisb_global_settings', [
-            'primary_color' => '#2563eb',
-            'secondary_color' => '#1e40af',
-            'text_color' => '#1f2937',
-            'background_color' => '#ffffff',
-            'muted_color' => '#64748b',
-            'border_color' => '#e5e7eb',
-            'success_color' => '#10b981',
-            'error_color' => '#ef4444',
-        ]);
-        
-        ?>
-        <style id="aisb-global-settings">
-            :root {
-                /* Section rendering colors - customizable by users */
-                --aisb-color-primary: <?php echo esc_attr($settings['primary_color']); ?>;
-                --aisb-color-secondary: <?php echo esc_attr($settings['secondary_color']); ?>;
-                --aisb-color-text: <?php echo esc_attr($settings['text_color']); ?>;
-                --aisb-color-background: <?php echo esc_attr($settings['background_color']); ?>;
-                --aisb-color-muted: <?php echo esc_attr($settings['muted_color'] ?? '#64748b'); ?>;
-                --aisb-color-border: <?php echo esc_attr($settings['border_color'] ?? '#e5e7eb'); ?>;
-                --aisb-color-success: <?php echo esc_attr($settings['success_color'] ?? '#10b981'); ?>;
-                --aisb-color-error: <?php echo esc_attr($settings['error_color'] ?? '#ef4444'); ?>;
-            }
-        </style>
-        <?php
-    }
-    
     /**
      * Migrate legacy sections format if needed
      */
@@ -306,8 +270,8 @@ class EditorTemplate {
                 const sectionPrimary = getComputedStyle(document.documentElement)
                     .getPropertyValue('--aisb-color-primary').trim();
                 console.assert(
-                    sectionPrimary === '#2563eb', 
-                    'Section tokens should be separate from editor tokens'
+                    sectionPrimary === '#667EEA' || sectionPrimary === '#667eea', 
+                    'Section tokens should use purple primary color'
                 );
                 
                 console.log('✅ Editor validation tests completed');

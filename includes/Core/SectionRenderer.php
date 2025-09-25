@@ -75,7 +75,9 @@ class SectionRenderer {
                         <div class="aisb-hero__buttons">
                             <?php foreach ($buttons as $button): ?>
                                 <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
-                                   class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>">
+                                   class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>"
+                                   target="<?php echo esc_attr($button['target'] ?? '_self'); ?>"
+                                   <?php if (($button['target'] ?? '_self') === '_blank'): ?>rel="noopener noreferrer"<?php endif; ?>>
                                     <?php echo esc_html($button['text'] ?? 'Button'); ?>
                                 </a>
                             <?php endforeach; ?>
@@ -117,6 +119,7 @@ class SectionRenderer {
         $cards = $content['cards'] ?? [];
         $theme = esc_attr($content['theme_variant'] ?? 'light');
         $layout = esc_attr($content['layout_variant'] ?? 'content-left');
+        $grid_columns = esc_attr($content['grid_columns'] ?? '3');
         $card_alignment = esc_attr($content['card_alignment'] ?? 'left');
         $media_type = $content['media_type'] ?? 'none';
         $image = esc_url($content['featured_image'] ?? '');
@@ -124,6 +127,7 @@ class SectionRenderer {
         $buttons = $content['buttons'] ?? [];
         
         $classes = "aisb-section aisb-features aisb-section--{$theme} aisb-section--{$layout}";
+        $classes .= " aisb-features--{$grid_columns}-columns";
         if ($card_alignment && $card_alignment !== 'left') {
             $classes .= " aisb-features--cards-{$card_alignment}";
         }
@@ -179,7 +183,8 @@ class SectionRenderer {
                                     <?php if (!empty($card['link']) && !empty($card['link_text'])): ?>
                                         <a href="<?php echo esc_url($card['link']); ?>" 
                                            class="aisb-features__item-link"
-                                           target="<?php echo esc_attr($card['link_target'] ?? '_self'); ?>">
+                                           target="<?php echo esc_attr($card['link_target'] ?? '_self'); ?>"
+                                           <?php if (($card['link_target'] ?? '_self') === '_blank'): ?>rel="noopener noreferrer"<?php endif; ?>>
                                             <?php echo esc_html($card['link_text']); ?>
                                         </a>
                                     <?php endif; ?>
@@ -197,7 +202,9 @@ class SectionRenderer {
                     <div class="aisb-features__buttons">
                         <?php foreach ($buttons as $button): ?>
                             <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
-                               class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>">
+                               class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>"
+                               target="<?php echo esc_attr($button['target'] ?? '_self'); ?>"
+                               <?php if (($button['target'] ?? '_self') === '_blank'): ?>rel="noopener noreferrer"<?php endif; ?>>
                                 <?php echo esc_html($button['text'] ?? 'Button'); ?>
                             </a>
                         <?php endforeach; ?>

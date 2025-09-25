@@ -216,6 +216,7 @@ class DocumentProcessor {
                     'video_url' => '',
                     'theme_variant' => 'light', // Alternate with hero
                     'layout_variant' => 'content-left',
+                    'grid_columns' => '3',
                     'card_alignment' => 'left',
                     'cards' => $featureCards,
                     'buttons' => []

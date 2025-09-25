@@ -12,8 +12,8 @@ export const useEditorStore = create(
     isLoading: false,
     sidebarsVisible: true,
     globalSettings: {
-      primary_color: '#2563eb',
-      secondary_color: '#1e40af',
+      primary_color: '#3B82F6',
+      secondary_color: '#8B5CF6',
       text_color: '#1f2937',
       background_color: '#ffffff',
     },
@@ -205,6 +205,7 @@ function getDefaultContent(type) {
         video_url: '',
         theme_variant: 'light',
         layout_variant: 'content-left',
+        grid_columns: '3',
         card_alignment: 'left',
         cards: [
           {

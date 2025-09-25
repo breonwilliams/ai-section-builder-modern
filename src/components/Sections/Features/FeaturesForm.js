@@ -175,6 +175,29 @@ function FeaturesForm({ content, onChange }) {
           />
 
           <ToggleGroup
+            label="Cards Per Row"
+            value={content.grid_columns || '3'}
+            onChange={(value) => handleChange('grid_columns', value)}
+            options={[
+              { 
+                value: '2', 
+                label: '2',
+                tooltip: 'Two cards per row'
+              },
+              { 
+                value: '3', 
+                label: '3',
+                tooltip: 'Three cards per row (default)'
+              },
+              { 
+                value: '4', 
+                label: '4',
+                tooltip: 'Four cards per row'
+              },
+            ]}
+          />
+
+          <ToggleGroup
             label="Card Alignment"
             value={content.card_alignment || 'left'}
             onChange={(value) => handleChange('card_alignment', value)}

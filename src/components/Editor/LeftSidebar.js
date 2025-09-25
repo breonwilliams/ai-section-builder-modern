@@ -28,15 +28,6 @@ function LeftSidebar() {
   return (
     <div className="aisb-left-sidebar">
       <div className="aisb-sidebar-header">
-        {currentSection && !showSectionList && (
-          <button 
-            className="aisb-back-to-sections"
-            onClick={() => setShowSectionList(true)}
-            title="Back to section list"
-          >
-            <Icon name="arrow-left" size="small" />
-          </button>
-        )}
         <div className="aisb-sidebar-title">
           {shouldShowSectionList ? (
             <span>Add Section</span>

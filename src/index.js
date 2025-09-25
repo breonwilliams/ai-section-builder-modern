@@ -7,6 +7,9 @@ import DOMPurify from 'dompurify';
 // Import design tokens first, then editor styles
 import './styles/tokens/index.css';
 import './styles/editor.css';
+// Import section styles for preview
+import './styles/sections/hero.css';
+import './styles/sections/features.css';
 import App from './App';
 
 // Configure DOMPurify globally

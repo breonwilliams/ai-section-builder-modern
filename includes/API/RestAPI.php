@@ -126,8 +126,8 @@ class RestAPI {
      */
     public function get_settings() {
         $settings = get_option('aisb_global_settings', [
-            'primary_color' => '#2563eb',
-            'secondary_color' => '#1e40af',
+            'primary_color' => '#3B82F6',
+            'secondary_color' => '#8B5CF6',
             'text_color' => '#1f2937',
             'background_color' => '#ffffff',
         ]);
@@ -146,8 +146,8 @@ class RestAPI {
         
         // Sanitize settings
         $sanitized_settings = [
-            'primary_color' => sanitize_hex_color($settings['primary_color'] ?? '#2563eb'),
-            'secondary_color' => sanitize_hex_color($settings['secondary_color'] ?? '#1e40af'),
+            'primary_color' => sanitize_hex_color($settings['primary_color'] ?? '#3B82F6'),
+            'secondary_color' => sanitize_hex_color($settings['secondary_color'] ?? '#8B5CF6'),
             'text_color' => sanitize_hex_color($settings['text_color'] ?? '#1f2937'),
             'background_color' => sanitize_hex_color($settings['background_color'] ?? '#ffffff'),
         ];

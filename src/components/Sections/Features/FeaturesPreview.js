@@ -1,7 +1,5 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
-import '../../../styles/tokens/section-tokens.css';
-import '../../../styles/sections/features.css';
 
 function FeaturesPreview({ content }) {
   const {
@@ -11,6 +9,7 @@ function FeaturesPreview({ content }) {
     outro_content,
     theme_variant = 'light',
     layout_variant = 'content-left',
+    grid_columns = '3',
     card_alignment = 'left',
     media_type = 'none',
     featured_image,
@@ -42,6 +41,7 @@ function FeaturesPreview({ content }) {
     'aisb-features',
     `aisb-section--${theme_variant}`,
     `aisb-section--${layout_variant}`,
+    `aisb-features--${grid_columns}-columns`,
     `aisb-features--cards-${card_alignment}`,
   ].join(' ');
 
@@ -164,7 +164,7 @@ function FeaturesPreview({ content }) {
                         target={card.link_target || '_self'}
                         rel={card.link_target === '_blank' ? 'noopener noreferrer' : ''}
                       >
-                        {card.link_text} →
+                        {card.link_text}
                       </a>
                     )}
                   </div>
