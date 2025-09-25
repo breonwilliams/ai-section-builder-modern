@@ -10,6 +10,7 @@ export const DEFAULT_GLOBAL_SETTINGS = {
   
   // Light Mode Colors
   text_color: '#1f2937',         // Dark gray text
+  muted_text_color: '#6b7280',   // Muted text for eyebrows, captions
   background_color: '#ffffff',   // White background
   surface_color: '#f9fafb',      // Slightly gray surface for cards
   
@@ -17,6 +18,7 @@ export const DEFAULT_GLOBAL_SETTINGS = {
   dark_background: '#1a1a1a',    // Dark background
   dark_surface: '#2a2a2a',       // Slightly lighter surface for cards
   dark_text: '#fafafa',          // Light text for dark mode
+  dark_muted_text: '#9ca3af',    // Muted text for dark mode
 };
 
 export const useEditorStore = create(
@@ -206,11 +208,13 @@ export const useEditorStore = create(
           'primary_color': '--aisb-color-primary',
           'secondary_color': '--aisb-color-secondary',
           'text_color': '--aisb-color-text',
+          'muted_text_color': '--aisb-color-text-muted',
           'background_color': '--aisb-color-background',
           'surface_color': '--aisb-color-surface',
           'dark_background': '--aisb-color-dark-background',
           'dark_surface': '--aisb-color-dark-surface',
-          'dark_text': '--aisb-color-dark-text'
+          'dark_text': '--aisb-color-dark-text',
+          'dark_muted_text': '--aisb-color-dark-text-muted'
         };
         
         const cssVarName = varMap[key];

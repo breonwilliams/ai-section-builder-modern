@@ -94,6 +94,15 @@ const GlobalSettings = ({ onClose }) => {
 
           <div className="aisb-global-settings__field">
             <ColorPicker
+              label="Muted Text Color"
+              value={localSettings.muted_text_color}
+              onChange={(value) => handleColorChange('muted_text_color', value)}
+              description="Color for eyebrow text, captions, and secondary content"
+            />
+          </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
               label="Background Color"
               value={localSettings.background_color}
               onChange={(value) => handleColorChange('background_color', value)}
@@ -141,6 +150,15 @@ const GlobalSettings = ({ onClose }) => {
               value={localSettings.dark_text}
               onChange={(value) => handleColorChange('dark_text', value)}
               description="Text color for dark mode sections"
+            />
+          </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Dark Muted Text"
+              value={localSettings.dark_muted_text}
+              onChange={(value) => handleColorChange('dark_muted_text', value)}
+              description="Muted text color for dark mode eyebrows and captions"
             />
           </div>
         </div>

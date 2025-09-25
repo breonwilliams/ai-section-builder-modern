@@ -110,11 +110,13 @@ class Assets {
             'primary_color' => '#3B82F6',
             'secondary_color' => '#8B5CF6',
             'text_color' => '#1f2937',
+            'muted_text_color' => '#6b7280',
             'background_color' => '#ffffff',
             'surface_color' => '#f9fafb',
             'dark_background' => '#1a1a1a',
             'dark_surface' => '#2a2a2a',
             'dark_text' => '#fafafa',
+            'dark_muted_text' => '#9ca3af',
         ]);
         
         // Generate CSS with custom properties
@@ -127,13 +129,15 @@ class Assets {
         }
         if (!empty($global_settings['text_color'])) {
             $custom_css .= '--aisb-color-text: ' . esc_attr($global_settings['text_color']) . ';';
-            // Generate derived colors from text color
+            // Generate border colors from text color (still using opacity for borders)
             $rgb = $this->hex_to_rgb($global_settings['text_color']);
             if ($rgb) {
-                $custom_css .= '--aisb-color-text-muted: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.7);';
                 $custom_css .= '--aisb-color-border: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.15);';
                 $custom_css .= '--aisb-color-divider: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.1);';
             }
+        }
+        if (!empty($global_settings['muted_text_color'])) {
+            $custom_css .= '--aisb-color-text-muted: ' . esc_attr($global_settings['muted_text_color']) . ';';
         }
         if (!empty($global_settings['background_color'])) {
             $custom_css .= '--aisb-color-background: ' . esc_attr($global_settings['background_color']) . ';';
@@ -149,13 +153,15 @@ class Assets {
         }
         if (!empty($global_settings['dark_text'])) {
             $custom_css .= '--aisb-color-dark-text: ' . esc_attr($global_settings['dark_text']) . ';';
-            // Generate derived colors from dark text color
+            // Generate border colors from dark text color (still using opacity for borders)
             $rgb = $this->hex_to_rgb($global_settings['dark_text']);
             if ($rgb) {
-                $custom_css .= '--aisb-color-dark-text-muted: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.7);';
                 $custom_css .= '--aisb-color-dark-border: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.15);';
                 $custom_css .= '--aisb-color-dark-divider: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.1);';
             }
+        }
+        if (!empty($global_settings['dark_muted_text'])) {
+            $custom_css .= '--aisb-color-dark-text-muted: ' . esc_attr($global_settings['dark_muted_text']) . ';';
         }
         $custom_css .= '}';
         
