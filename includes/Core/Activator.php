@@ -19,10 +19,12 @@ class Activator {
                 'muted_text_color' => '#6b7280',   // Muted text
                 'background_color' => '#ffffff',   // White background
                 'surface_color' => '#f9fafb',      // Light gray surface
+                'border_color' => '#e5e7eb',       // Border color
                 'dark_background' => '#1a1a1a',    // Dark background
                 'dark_surface' => '#2a2a2a',       // Dark surface
                 'dark_text' => '#fafafa',          // Light text for dark mode
                 'dark_muted_text' => '#9ca3af',    // Dark muted text
+                'dark_border' => '#4b5563',        // Dark border color
             ]);
         }
         

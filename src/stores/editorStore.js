@@ -13,12 +13,14 @@ export const DEFAULT_GLOBAL_SETTINGS = {
   muted_text_color: '#6b7280',   // Muted text for eyebrows, captions
   background_color: '#ffffff',   // White background
   surface_color: '#f9fafb',      // Slightly gray surface for cards
+  border_color: '#e5e7eb',       // Border color for cards
   
   // Dark Mode Colors
   dark_background: '#1a1a1a',    // Dark background
   dark_surface: '#2a2a2a',       // Slightly lighter surface for cards
   dark_text: '#fafafa',          // Light text for dark mode
   dark_muted_text: '#9ca3af',    // Muted text for dark mode
+  dark_border: '#4b5563',        // Border color for dark mode
 };
 
 export const useEditorStore = create(
@@ -211,10 +213,12 @@ export const useEditorStore = create(
           'muted_text_color': '--aisb-color-text-muted',
           'background_color': '--aisb-color-background',
           'surface_color': '--aisb-color-surface',
+          'border_color': '--aisb-color-border',
           'dark_background': '--aisb-color-dark-background',
           'dark_surface': '--aisb-color-dark-surface',
           'dark_text': '--aisb-color-dark-text',
-          'dark_muted_text': '--aisb-color-dark-text-muted'
+          'dark_muted_text': '--aisb-color-dark-text-muted',
+          'dark_border': '--aisb-color-dark-border'
         };
         
         const cssVarName = varMap[key];
@@ -260,12 +264,18 @@ export const useEditorStore = create(
         );
 
         if (response.data.success && response.data.settings) {
+          // Merge with defaults to ensure all fields are present
+          const mergedSettings = {
+            ...DEFAULT_GLOBAL_SETTINGS,
+            ...response.data.settings
+          };
+          
           set((state) => {
-            state.globalSettings = response.data.settings;
+            state.globalSettings = mergedSettings;
           });
 
           // Apply settings to CSS variables
-          get().updateGlobalSettings(response.data.settings);
+          get().updateGlobalSettings(mergedSettings);
         }
       } catch (error) {
         console.error('Failed to load global settings:', error);

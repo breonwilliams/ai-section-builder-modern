@@ -113,10 +113,12 @@ class Assets {
             'muted_text_color' => '#6b7280',
             'background_color' => '#ffffff',
             'surface_color' => '#f9fafb',
+            'border_color' => '#e5e7eb',
             'dark_background' => '#1a1a1a',
             'dark_surface' => '#2a2a2a',
             'dark_text' => '#fafafa',
             'dark_muted_text' => '#9ca3af',
+            'dark_border' => '#4b5563',
         ]);
         
         // Generate CSS with custom properties
@@ -129,10 +131,9 @@ class Assets {
         }
         if (!empty($global_settings['text_color'])) {
             $custom_css .= '--aisb-color-text: ' . esc_attr($global_settings['text_color']) . ';';
-            // Generate border colors from text color (still using opacity for borders)
+            // Generate divider color from text color (still using opacity for subtle dividers)
             $rgb = $this->hex_to_rgb($global_settings['text_color']);
             if ($rgb) {
-                $custom_css .= '--aisb-color-border: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.15);';
                 $custom_css .= '--aisb-color-divider: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.1);';
             }
         }
@@ -145,6 +146,9 @@ class Assets {
         if (!empty($global_settings['surface_color'])) {
             $custom_css .= '--aisb-color-surface: ' . esc_attr($global_settings['surface_color']) . ';';
         }
+        if (!empty($global_settings['border_color'])) {
+            $custom_css .= '--aisb-color-border: ' . esc_attr($global_settings['border_color']) . ';';
+        }
         if (!empty($global_settings['dark_background'])) {
             $custom_css .= '--aisb-color-dark-background: ' . esc_attr($global_settings['dark_background']) . ';';
         }
@@ -153,15 +157,17 @@ class Assets {
         }
         if (!empty($global_settings['dark_text'])) {
             $custom_css .= '--aisb-color-dark-text: ' . esc_attr($global_settings['dark_text']) . ';';
-            // Generate border colors from dark text color (still using opacity for borders)
+            // Generate divider color from dark text color (still using opacity for subtle dividers)
             $rgb = $this->hex_to_rgb($global_settings['dark_text']);
             if ($rgb) {
-                $custom_css .= '--aisb-color-dark-border: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.15);';
                 $custom_css .= '--aisb-color-dark-divider: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.1);';
             }
         }
         if (!empty($global_settings['dark_muted_text'])) {
             $custom_css .= '--aisb-color-dark-text-muted: ' . esc_attr($global_settings['dark_muted_text']) . ';';
+        }
+        if (!empty($global_settings['dark_border'])) {
+            $custom_css .= '--aisb-color-dark-border: ' . esc_attr($global_settings['dark_border']) . ';';
         }
         $custom_css .= '}';
         

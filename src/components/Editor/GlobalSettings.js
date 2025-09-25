@@ -5,12 +5,20 @@ import Icon from '../Common/Icon';
 
 const GlobalSettings = ({ onClose }) => {
   const { globalSettings, updateGlobalSettings, saveGlobalSettings, resetGlobalSettings } = useEditorStore();
-  const [localSettings, setLocalSettings] = useState(globalSettings);
+  // Merge with defaults to ensure all fields are present
+  const [localSettings, setLocalSettings] = useState({
+    ...DEFAULT_GLOBAL_SETTINGS,
+    ...globalSettings
+  });
   const [hasChanges, setHasChanges] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    setLocalSettings(globalSettings);
+    // Merge with defaults when globalSettings changes
+    setLocalSettings({
+      ...DEFAULT_GLOBAL_SETTINGS,
+      ...globalSettings
+    });
   }, [globalSettings]);
 
   const handleColorChange = (key, value) => {
@@ -118,6 +126,15 @@ const GlobalSettings = ({ onClose }) => {
               description="Background color for cards and panels"
             />
           </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Border Color"
+              value={localSettings.border_color}
+              onChange={(value) => handleColorChange('border_color', value)}
+              description="Border color for cards and dividers"
+            />
+          </div>
         </div>
 
         <div className="aisb-global-settings__section">
@@ -159,6 +176,15 @@ const GlobalSettings = ({ onClose }) => {
               value={localSettings.dark_muted_text}
               onChange={(value) => handleColorChange('dark_muted_text', value)}
               description="Muted text color for dark mode eyebrows and captions"
+            />
+          </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Dark Border Color"
+              value={localSettings.dark_border}
+              onChange={(value) => handleColorChange('dark_border', value)}
+              description="Border color for cards in dark mode"
             />
           </div>
         </div>
