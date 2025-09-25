@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useEditor } from '../Providers/EditorProvider';
 import HeroForm from '../Sections/Hero/HeroForm';
 import FeaturesForm from '../Sections/Features/FeaturesForm';
+import GlobalSettings from './GlobalSettings';
 import Icon from '../Common/Icon';
 
 function LeftSidebar() {
-  const { addSection, sections, currentSectionIndex, updateSection, setCurrentSection } = useEditor();
-  const [showSectionList, setShowSectionList] = React.useState(false);
+  const { 
+    addSection, 
+    sections, 
+    currentSectionIndex, 
+    updateSection, 
+    setCurrentSection,
+    showGlobalSettings,
+    setShowGlobalSettings 
+  } = useEditor();
+  const [showSectionList, setShowSectionList] = useState(false);
 
   const handleAddSection = (type) => {
     addSection(type);
@@ -14,7 +23,7 @@ function LeftSidebar() {
   };
 
   // Reset to edit view when section changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentSectionIndex !== null && currentSectionIndex >= 0) {
       setShowSectionList(false);
     }
@@ -24,6 +33,15 @@ function LeftSidebar() {
 
   // Show section list if no current section or user clicked back
   const shouldShowSectionList = !currentSection || showSectionList;
+
+  // If showing global settings, render that instead
+  if (showGlobalSettings) {
+    return (
+      <div className="aisb-left-sidebar">
+        <GlobalSettings onClose={() => setShowGlobalSettings(false)} />
+      </div>
+    );
+  }
 
   return (
     <div className="aisb-left-sidebar">

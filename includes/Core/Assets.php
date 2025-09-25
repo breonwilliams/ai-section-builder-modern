@@ -105,6 +105,33 @@ class Assets {
             $asset['version']
         );
         
+        // Add global settings as CSS variables
+        $global_settings = get_option('aisb_global_settings', [
+            'primary_color' => '#3B82F6',
+            'secondary_color' => '#8B5CF6',
+            'text_color' => '#1f2937',
+            'background_color' => '#ffffff',
+        ]);
+        
+        // Generate CSS with custom properties
+        $custom_css = ':root {';
+        if (!empty($global_settings['primary_color'])) {
+            $custom_css .= '--aisb-color-primary: ' . esc_attr($global_settings['primary_color']) . ';';
+        }
+        if (!empty($global_settings['secondary_color'])) {
+            $custom_css .= '--aisb-color-secondary: ' . esc_attr($global_settings['secondary_color']) . ';';
+        }
+        if (!empty($global_settings['text_color'])) {
+            $custom_css .= '--aisb-color-text: ' . esc_attr($global_settings['text_color']) . ';';
+        }
+        if (!empty($global_settings['background_color'])) {
+            $custom_css .= '--aisb-color-background: ' . esc_attr($global_settings['background_color']) . ';';
+        }
+        $custom_css .= '}';
+        
+        // Add the custom CSS inline
+        wp_add_inline_style('aisb-frontend', $custom_css);
+        
         // Enqueue frontend script (for interactions like FAQ accordion)
         wp_enqueue_script(
             'aisb-frontend',

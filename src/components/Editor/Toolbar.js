@@ -5,7 +5,7 @@ import ToggleSidebarsButton from '../Common/ToggleSidebarsButton';
 import ContentImporter from './ContentImporter';
 
 function Toolbar() {
-  const { saveSections, isDirty, isSaving, setCurrentSection } = useEditor();
+  const { saveSections, isDirty, isSaving, setCurrentSection, setShowGlobalSettings } = useEditor();
   const [showImporter, setShowImporter] = useState(false);
 
   const handleSave = async () => {
@@ -20,8 +20,7 @@ function Toolbar() {
   };
 
   const handleGlobalSettings = () => {
-    // Placeholder for global settings
-    console.log('Global settings clicked - functionality to be implemented');
+    setShowGlobalSettings(true);
   };
 
   // Get post data from WordPress

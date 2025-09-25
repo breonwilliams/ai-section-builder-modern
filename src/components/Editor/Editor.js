@@ -6,14 +6,16 @@ import Canvas from './Canvas';
 import RightSidebar from './RightSidebar';
 
 function Editor() {
-  const { loadSections, sections, sidebarsVisible } = useEditor();
+  const { loadSections, loadGlobalSettings, sections, sidebarsVisible } = useEditor();
 
   useEffect(() => {
-    // Load sections when editor mounts
+    // Load sections and global settings when editor mounts
     const postId = window.aisbEditor?.postId;
     if (postId) {
       loadSections(postId);
     }
+    // Always load global settings
+    loadGlobalSettings();
   }, []);
 
   return (

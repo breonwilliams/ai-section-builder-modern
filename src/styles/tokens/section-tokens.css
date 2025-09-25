@@ -13,14 +13,10 @@
     
     /* Primary Colors - Blue */
     --aisb-color-primary: #3B82F6;           /* Bright blue - professional and modern */
-    --aisb-color-primary-hover: #2563EB;     /* Darker blue for hover */
-    --aisb-color-primary-light: #60A5FA;     /* Lighter blue for dark mode */
     --aisb-color-primary-bg: rgba(59, 130, 246, 0.1);
     
     /* Secondary Colors - Purple for harmony */
     --aisb-color-secondary: #8B5CF6;         /* Purple - flows naturally with blue */
-    --aisb-color-secondary-hover: #7C3AED;   /* Darker purple for hover */
-    --aisb-color-secondary-light: #A78BFA;   /* Lighter purple for dark mode */
     --aisb-color-secondary-bg: rgba(139, 92, 246, 0.1);
     
     /* Text Colors */
@@ -58,11 +54,9 @@
     
     /* Interactive Elements */
     --aisb-interactive-primary: var(--aisb-color-primary);
-    --aisb-interactive-primary-hover: var(--aisb-color-primary-hover);
     --aisb-interactive-primary-text: var(--aisb-color-text-inverse);
     
     --aisb-interactive-secondary: var(--aisb-color-secondary);
-    --aisb-interactive-secondary-hover: var(--aisb-color-secondary-hover);
     --aisb-interactive-secondary-text: var(--aisb-color-text-inverse);
     
     /* Content Hierarchy */
@@ -70,7 +64,6 @@
     --aisb-content-body: var(--aisb-color-text-secondary);
     --aisb-content-caption: var(--aisb-color-text-muted);
     --aisb-content-link: var(--aisb-color-primary);
-    --aisb-content-link-hover: var(--aisb-color-primary-hover);
     
     /* Surfaces */
     --aisb-surface-primary: var(--aisb-color-background);

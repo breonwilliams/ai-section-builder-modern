@@ -291,16 +291,6 @@
   color: #9CA3AF;  /* Specific gray for optimal dark mode contrast (7.2:1 ratio) */
 }
 
-/* Dark Mode Link Styles */
-.aisb-section--dark .aisb-features__item-link {
-  color: var(--aisb-color-primary-light);
-}
-
-.aisb-section--dark .aisb-features__item-link:hover {
-  color: var(--aisb-color-primary) !important;
-  text-decoration: underline;
-}
-
 /* Buttons - Always centered, now after outro */
 .aisb-features__buttons {
   display: flex;

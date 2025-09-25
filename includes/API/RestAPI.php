@@ -144,7 +144,7 @@ class RestAPI {
     public function save_settings($request) {
         $settings = $request->get_param('settings');
         
-        // Sanitize settings
+        // Sanitize settings - using the same defaults as JavaScript
         $sanitized_settings = [
             'primary_color' => sanitize_hex_color($settings['primary_color'] ?? '#3B82F6'),
             'secondary_color' => sanitize_hex_color($settings['secondary_color'] ?? '#8B5CF6'),

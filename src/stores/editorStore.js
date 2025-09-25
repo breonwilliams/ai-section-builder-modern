@@ -2,6 +2,14 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import axios from 'axios';
 
+// Default global settings
+export const DEFAULT_GLOBAL_SETTINGS = {
+  primary_color: '#3B82F6',      // Blue
+  secondary_color: '#8B5CF6',    // Purple
+  text_color: '#1f2937',
+  background_color: '#ffffff',
+};
+
 export const useEditorStore = create(
   immer((set, get) => ({
     // State
@@ -11,12 +19,8 @@ export const useEditorStore = create(
     isSaving: false,
     isLoading: false,
     sidebarsVisible: true,
-    globalSettings: {
-      primary_color: '#3B82F6',
-      secondary_color: '#8B5CF6',
-      text_color: '#1f2937',
-      background_color: '#ffffff',
-    },
+    showGlobalSettings: false,
+    globalSettings: { ...DEFAULT_GLOBAL_SETTINGS },
 
     // Actions
     loadSections: async (postId) => {
@@ -157,6 +161,16 @@ export const useEditorStore = create(
         state.sidebarsVisible = visible;
       });
     },
+
+    setShowGlobalSettings: (show) => {
+      set((state) => {
+        state.showGlobalSettings = show;
+        // Clear current section when showing global settings
+        if (show) {
+          state.currentSectionIndex = null;
+        }
+      });
+    },
     
     setSections: (sections) => {
       set((state) => {
@@ -167,6 +181,87 @@ export const useEditorStore = create(
           state.currentSectionIndex = sections.length > 0 ? sections.length - 1 : null;
         }
       });
+    },
+
+    // Global Settings Actions
+    updateGlobalSettings: (settings) => {
+      set((state) => {
+        state.globalSettings = { ...state.globalSettings, ...settings };
+      });
+      
+      // Update CSS variables immediately for live preview
+      const root = document.documentElement;
+      Object.entries(settings).forEach(([key, value]) => {
+        // Map the settings keys to the correct CSS variable names
+        const varMap = {
+          'primary_color': '--aisb-color-primary',
+          'secondary_color': '--aisb-color-secondary',
+          'text_color': '--aisb-color-text',
+          'background_color': '--aisb-color-background'
+        };
+        
+        const cssVarName = varMap[key];
+        if (cssVarName) {
+          root.style.setProperty(cssVarName, value);
+        }
+      });
+    },
+
+    saveGlobalSettings: async (settings) => {
+      try {
+        const response = await axios.post(
+          `${window.aisbEditor.apiUrl}settings`,
+          { settings },
+          {
+            headers: {
+              'X-WP-Nonce': window.aisbEditor.nonce,
+            },
+          }
+        );
+
+        if (response.data.success) {
+          set((state) => {
+            state.globalSettings = settings;
+          });
+          return true;
+        }
+      } catch (error) {
+        console.error('Failed to save global settings:', error);
+        throw error;
+      }
+    },
+
+    loadGlobalSettings: async () => {
+      try {
+        const response = await axios.get(
+          `${window.aisbEditor.apiUrl}settings`,
+          {
+            headers: {
+              'X-WP-Nonce': window.aisbEditor.nonce,
+            },
+          }
+        );
+
+        if (response.data.success && response.data.settings) {
+          set((state) => {
+            state.globalSettings = response.data.settings;
+          });
+
+          // Apply settings to CSS variables
+          get().updateGlobalSettings(response.data.settings);
+        }
+      } catch (error) {
+        console.error('Failed to load global settings:', error);
+      }
+    },
+
+    resetGlobalSettings: () => {
+      set((state) => {
+        state.globalSettings = { ...DEFAULT_GLOBAL_SETTINGS };
+      });
+      
+      // Apply default settings to CSS variables
+      get().updateGlobalSettings(DEFAULT_GLOBAL_SETTINGS);
     },
   }))
 );
