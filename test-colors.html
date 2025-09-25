@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color System Test</title>
+    <link rel="stylesheet" href="build/frontend.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .color-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .color-input {
+            display: block;
+            margin: 10px 0;
+        }
+        
+        .color-input label {
+            display: inline-block;
+            width: 150px;
+            font-size: 14px;
+        }
+        
+        .color-input input {
+            width: 80px;
+            height: 30px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .section-wrapper {
+            margin: 40px 0;
+            border: 2px solid #eee;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .section-label {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>AI Section Builder - Color System Test</h1>
+        <p>Use the controls on the right to test different color combinations. All text should use the Text Color setting.</p>
+        
+        <div class="color-controls">
+            <h3>Global Settings</h3>
+            <div class="color-input">
+                <label for="primary">Primary Color:</label>
+                <input type="color" id="primary" value="#3B82F6">
+            </div>
+            <div class="color-input">
+                <label for="secondary">Secondary Color:</label>
+                <input type="color" id="secondary" value="#8B5CF6">
+            </div>
+            <div class="color-input">
+                <label for="text">Text Color:</label>
+                <input type="color" id="text" value="#1f2937">
+            </div>
+            <div class="color-input">
+                <label for="background">Background Color:</label>
+                <input type="color" id="background" value="#ffffff">
+            </div>
+            <div class="color-input">
+                <label for="surface">Surface Color:</label>
+                <input type="color" id="surface" value="#f9fafb">
+            </div>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+            <h4>Dark Mode Colors</h4>
+            <div class="color-input">
+                <label for="dark-bg">Dark Background:</label>
+                <input type="color" id="dark-bg" value="#1a1a1a">
+            </div>
+            <div class="color-input">
+                <label for="dark-surface">Dark Surface:</label>
+                <input type="color" id="dark-surface" value="#2a2a2a">
+            </div>
+            <div class="color-input">
+                <label for="dark-text">Dark Text:</label>
+                <input type="color" id="dark-text" value="#fafafa">
+            </div>
+            <button onclick="resetColors()" style="margin-top: 10px; padding: 8px 16px;">Reset to Defaults</button>
+        </div>
+        
+        <!-- Light Mode Hero -->
+        <div class="section-wrapper">
+            <div class="section-label">Hero Section - Light Mode</div>
+            <section class="aisb-hero aisb-section--light">
+                <div class="aisb-hero__container">
+                    <div class="aisb-hero__content">
+                        <span class="aisb-hero__eyebrow">Eyebrow Text</span>
+                        <h2 class="aisb-hero__heading">This Heading Uses Text Color</h2>
+                        <div class="aisb-hero__body">
+                            <p>This body text should also use the main Text Color setting, not a separate secondary color. All text content should be controlled by the single Text Color global setting.</p>
+                        </div>
+                        <div class="aisb-hero__buttons">
+                            <a href="#" class="aisb-btn aisb-btn-primary">Primary Button</a>
+                            <a href="#" class="aisb-btn aisb-btn-secondary">Secondary Button</a>
+                            <a href="#" class="aisb-btn aisb-btn-ghost">Ghost Button</a>
+                        </div>
+                        <div class="aisb-hero__outro">
+                            <p>This outro text should also use the main Text Color.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Dark Mode Hero -->
+        <div class="section-wrapper">
+            <div class="section-label">Hero Section - Dark Mode</div>
+            <section class="aisb-hero aisb-section--dark">
+                <div class="aisb-hero__container">
+                    <div class="aisb-hero__content">
+                        <span class="aisb-hero__eyebrow">Eyebrow Text</span>
+                        <h2 class="aisb-hero__heading">Dark Mode Inverts Colors</h2>
+                        <div class="aisb-hero__body">
+                            <p>In dark mode, we use dedicated dark mode colors: Dark Background for the section background, Dark Text for content, and Dark Surface for cards. This provides proper contrast and visual hierarchy.</p>
+                        </div>
+                        <div class="aisb-hero__buttons">
+                            <a href="#" class="aisb-btn aisb-btn-primary">Primary Button</a>
+                            <a href="#" class="aisb-btn aisb-btn-secondary">Secondary Button</a>
+                            <a href="#" class="aisb-btn aisb-btn-ghost">Ghost Button</a>
+                        </div>
+                        <div class="aisb-hero__outro">
+                            <p>Outro text in dark mode uses inverted colors.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="section-wrapper">
+            <div class="section-label">Features Section - Light Mode</div>
+            <section class="aisb-features aisb-section--light">
+                <div class="aisb-features__container">
+                    <div class="aisb-features__top">
+                        <div class="aisb-features__content">
+                            <span class="aisb-features__eyebrow">Features</span>
+                            <h2 class="aisb-features__heading">Feature Cards Test</h2>
+                            <div class="aisb-features__body">
+                                <p>All text in feature cards should use the main Text Color setting.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aisb-features__grid aisb-features--3-columns">
+                        <div class="aisb-features__item">
+                            <div class="aisb-features__item-content">
+                                <h3 class="aisb-features__item-title">Card Title</h3>
+                                <p class="aisb-features__item-description">This card description text should use the main Text Color.</p>
+                                <a href="#" class="aisb-features__item-link">Learn more</a>
+                            </div>
+                        </div>
+                        <div class="aisb-features__item">
+                            <div class="aisb-features__item-content">
+                                <h3 class="aisb-features__item-title">Another Card</h3>
+                                <p class="aisb-features__item-description">Consistent text color across all elements.</p>
+                                <a href="#" class="aisb-features__item-link">Learn more</a>
+                            </div>
+                        </div>
+                        <div class="aisb-features__item">
+                            <div class="aisb-features__item-content">
+                                <h3 class="aisb-features__item-title">Third Card</h3>
+                                <p class="aisb-features__item-description">Links use the Primary Color setting.</p>
+                                <a href="#" class="aisb-features__item-link">Learn more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aisb-features__outro">
+                        <p>Features outro text also uses the main Text Color.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script>
+        // Update CSS variables when colors change
+        document.getElementById('primary').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-primary', e.target.value);
+        });
+        
+        document.getElementById('secondary').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-secondary', e.target.value);
+        });
+        
+        document.getElementById('text').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-text', e.target.value);
+            // Update derived colors with proper opacity
+            const rgb = hexToRgb(e.target.value);
+            if (rgb) {
+                document.documentElement.style.setProperty('--aisb-color-text-muted', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.7)`);
+                document.documentElement.style.setProperty('--aisb-color-border', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)`);
+                document.documentElement.style.setProperty('--aisb-color-divider', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`);
+            }
+        });
+        
+        document.getElementById('background').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-background', e.target.value);
+        });
+        
+        document.getElementById('surface').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-surface', e.target.value);
+        });
+        
+        document.getElementById('dark-bg').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-dark-background', e.target.value);
+        });
+        
+        document.getElementById('dark-surface').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-dark-surface', e.target.value);
+        });
+        
+        document.getElementById('dark-text').addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--aisb-color-dark-text', e.target.value);
+            // Update derived colors with proper opacity
+            const rgb = hexToRgb(e.target.value);
+            if (rgb) {
+                document.documentElement.style.setProperty('--aisb-color-dark-text-muted', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.7)`);
+                document.documentElement.style.setProperty('--aisb-color-dark-border', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)`);
+                document.documentElement.style.setProperty('--aisb-color-dark-divider', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`);
+            }
+        });
+        
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        function resetColors() {
+            // Light mode colors
+            document.getElementById('primary').value = '#3B82F6';
+            document.getElementById('secondary').value = '#8B5CF6';
+            document.getElementById('text').value = '#1f2937';
+            document.getElementById('background').value = '#ffffff';
+            document.getElementById('surface').value = '#f9fafb';
+            
+            // Dark mode colors
+            document.getElementById('dark-bg').value = '#1a1a1a';
+            document.getElementById('dark-surface').value = '#2a2a2a';
+            document.getElementById('dark-text').value = '#fafafa';
+            
+            // Apply light mode colors
+            document.documentElement.style.setProperty('--aisb-color-primary', '#3B82F6');
+            document.documentElement.style.setProperty('--aisb-color-secondary', '#8B5CF6');
+            document.documentElement.style.setProperty('--aisb-color-text', '#1f2937');
+            document.documentElement.style.setProperty('--aisb-color-background', '#ffffff');
+            document.documentElement.style.setProperty('--aisb-color-surface', '#f9fafb');
+            
+            // Apply dark mode colors
+            document.documentElement.style.setProperty('--aisb-color-dark-background', '#1a1a1a');
+            document.documentElement.style.setProperty('--aisb-color-dark-surface', '#2a2a2a');
+            document.documentElement.style.setProperty('--aisb-color-dark-text', '#fafafa');
+            
+            // Update derived colors
+            document.documentElement.style.setProperty('--aisb-color-text-muted', 'rgba(31, 41, 55, 0.7)');
+            document.documentElement.style.setProperty('--aisb-color-border', 'rgba(31, 41, 55, 0.15)');
+            document.documentElement.style.setProperty('--aisb-color-divider', 'rgba(31, 41, 55, 0.1)');
+            
+            // Dark mode derived colors
+            document.documentElement.style.setProperty('--aisb-color-dark-text-muted', 'rgba(250, 250, 250, 0.7)');
+            document.documentElement.style.setProperty('--aisb-color-dark-border', 'rgba(250, 250, 250, 0.15)');
+            document.documentElement.style.setProperty('--aisb-color-dark-divider', 'rgba(250, 250, 250, 0.1)');
+        }
+    </script>
+</body>
+</html>

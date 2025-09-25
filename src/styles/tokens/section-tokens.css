@@ -20,20 +20,17 @@
     --aisb-color-secondary-bg: rgba(139, 92, 246, 0.1);
     
     /* Text Colors */
-    --aisb-color-text: #1f2937;              /* Main text color */
-    --aisb-color-text-secondary: #4b5563;    /* Secondary text */
-    --aisb-color-text-muted: #6b7280;        /* Muted text */
+    --aisb-color-text: #1f2937;              /* Main text color - user customizable */
     --aisb-color-text-inverse: #ffffff;      /* Text on dark backgrounds */
     
     /* Background Colors */
-    --aisb-color-background: #ffffff;        /* Main background */
-    --aisb-color-background-alt: #f9fafb;    /* Alternate background */
-    --aisb-color-surface: #ffffff;           /* Card/panel background */
+    --aisb-color-background: #ffffff;        /* Main background - user customizable */
+    --aisb-color-surface: #f9fafb;           /* Card/panel backgrounds - user customizable */
     
-    /* Utility Colors */
-    --aisb-color-muted: #64748b;             /* Muted elements */
-    --aisb-color-border: #e5e7eb;            /* Border color */
-    --aisb-color-divider: #f3f4f6;           /* Divider lines */
+    /* Derived Colors - based on main colors with opacity */
+    --aisb-color-text-muted: rgba(31, 41, 55, 0.7);    /* 70% opacity of text color */
+    --aisb-color-border: rgba(31, 41, 55, 0.15);       /* 15% opacity of text color */
+    --aisb-color-divider: rgba(31, 41, 55, 0.1);       /* 10% opacity of text color */
     
     /* Semantic Colors */
     --aisb-color-success: #10b981;
@@ -41,11 +38,15 @@
     --aisb-color-warning: #f59e0b;
     --aisb-color-info: #3b82f6;
     
-    /* Dark Mode Variants (for future implementation) */
-    --aisb-color-dark-background: #1a1a1a;
-    --aisb-color-dark-surface: #2a2a2a;
-    --aisb-color-dark-text: #fafafa;
-    --aisb-color-dark-border: #4b5563;
+    /* Dark Mode Colors - User Customizable */
+    --aisb-color-dark-background: #1a1a1a;   /* Main dark background - user customizable */
+    --aisb-color-dark-surface: #2a2a2a;      /* Dark card backgrounds - user customizable */
+    --aisb-color-dark-text: #fafafa;         /* Dark mode text - user customizable */
+    
+    /* Dark Mode Derived Colors */
+    --aisb-color-dark-text-muted: rgba(250, 250, 250, 0.7);  /* 70% opacity of dark text */
+    --aisb-color-dark-border: rgba(250, 250, 250, 0.15);     /* 15% opacity of dark text */
+    --aisb-color-dark-divider: rgba(250, 250, 250, 0.1);     /* 10% opacity of dark text */
     
     /* =========================================
        Section Semantic Tokens
@@ -61,13 +62,13 @@
     
     /* Content Hierarchy */
     --aisb-content-heading: var(--aisb-color-text);
-    --aisb-content-body: var(--aisb-color-text-secondary);
+    --aisb-content-body: var(--aisb-color-text);
     --aisb-content-caption: var(--aisb-color-text-muted);
     --aisb-content-link: var(--aisb-color-primary);
     
     /* Surfaces */
     --aisb-surface-primary: var(--aisb-color-background);
-    --aisb-surface-secondary: var(--aisb-color-background-alt);
+    --aisb-surface-secondary: var(--aisb-color-surface);
     --aisb-surface-elevated: var(--aisb-color-surface);
     
     /* =========================================

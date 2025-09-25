@@ -90,7 +90,7 @@
   font-family: var(--aisb-section-font-body, var(--aisb-section-font-family));
   font-size: var(--aisb-section-text-lg);
   line-height: var(--aisb-section-leading-relaxed);
-  color: var(--section-body, var(--aisb-color-text-secondary));
+  color: var(--section-body, var(--aisb-color-text));
 }
 
 .aisb-features__body p {
@@ -128,7 +128,7 @@
   align-items: center;
   justify-content: center;
   aspect-ratio: 16 / 9;
-  background: var(--aisb-color-background-alt);
+  background: var(--aisb-color-surface);
   border-radius: var(--aisb-section-radius-image, var(--aisb-section-radius-lg));
   color: var(--aisb-color-text-muted);
   font-size: var(--aisb-section-text-sm);
@@ -196,7 +196,7 @@
   position: relative;
   width: 100%;
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  background: var(--aisb-color-background-alt);
+  background: var(--aisb-color-surface);
   overflow: hidden;
 }
 
@@ -239,7 +239,7 @@
   font-family: var(--aisb-section-font-body, var(--aisb-section-font-family));
   font-size: var(--aisb-section-text-base);
   line-height: var(--aisb-section-leading-normal);
-  color: var(--section-body, var(--aisb-color-text-secondary));
+  color: var(--section-body, var(--aisb-color-text));
   margin: 0;
   flex: 1;
 }
@@ -277,7 +277,7 @@
 
 /* Link Hover States */
 .aisb-features__item-link:hover {
-  color: var(--aisb-color-primary-hover) !important;
+  filter: brightness(0.9);
   text-decoration: underline;
 }
 
@@ -288,7 +288,7 @@
 /* Dark Mode Overrides */
 /* Dark Mode Eyebrow - Use muted text for proper hierarchy */
 .aisb-section--dark .aisb-features__eyebrow {
-  color: #9CA3AF;  /* Specific gray for optimal dark mode contrast (7.2:1 ratio) */
+  color: var(--aisb-color-dark-text-muted);
 }
 
 /* Buttons - Always centered, now after outro */
@@ -307,7 +307,7 @@
   font-family: var(--aisb-section-font-body, var(--aisb-section-font-family));
   font-size: var(--aisb-section-text-lg);
   line-height: var(--aisb-section-leading-relaxed);
-  color: var(--section-outro, var(--aisb-color-text-secondary));
+  color: var(--section-outro, var(--aisb-color-text));
 }
 
 /* When outro is present, buttons have proper spacing after it */
@@ -330,8 +330,8 @@
   --section-border: var(--aisb-color-border);
   --section-text: var(--aisb-color-text);
   --section-heading: var(--aisb-color-text);
-  --section-body: var(--aisb-color-text-secondary);
-  --section-outro: var(--aisb-color-text-secondary);
+  --section-body: var(--aisb-color-text);
+  --section-outro: var(--aisb-color-text);
 }
 
 .aisb-section--dark {

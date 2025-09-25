@@ -82,6 +82,67 @@ const GlobalSettings = ({ onClose }) => {
               description="Used for secondary buttons and complementary elements"
             />
           </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Text Color"
+              value={localSettings.text_color}
+              onChange={(value) => handleColorChange('text_color', value)}
+              description="Main text color for headings and content"
+            />
+          </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Background Color"
+              value={localSettings.background_color}
+              onChange={(value) => handleColorChange('background_color', value)}
+              description="Default background color for sections"
+            />
+          </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Surface Color"
+              value={localSettings.surface_color}
+              onChange={(value) => handleColorChange('surface_color', value)}
+              description="Background color for cards and panels"
+            />
+          </div>
+        </div>
+
+        <div className="aisb-global-settings__section">
+          <h3 className="aisb-global-settings__section-title">Dark Mode Colors</h3>
+          <p className="aisb-global-settings__description">
+            Colors specifically for dark mode sections
+          </p>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Dark Background"
+              value={localSettings.dark_background}
+              onChange={(value) => handleColorChange('dark_background', value)}
+              description="Background color for dark mode sections"
+            />
+          </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Dark Surface"
+              value={localSettings.dark_surface}
+              onChange={(value) => handleColorChange('dark_surface', value)}
+              description="Card backgrounds in dark mode"
+            />
+          </div>
+
+          <div className="aisb-global-settings__field">
+            <ColorPicker
+              label="Dark Text"
+              value={localSettings.dark_text}
+              onChange={(value) => handleColorChange('dark_text', value)}
+              description="Text color for dark mode sections"
+            />
+          </div>
         </div>
       </div>
 

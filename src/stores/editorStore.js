@@ -4,10 +4,19 @@ import axios from 'axios';
 
 // Default global settings
 export const DEFAULT_GLOBAL_SETTINGS = {
+  // Main Brand Colors
   primary_color: '#3B82F6',      // Blue
   secondary_color: '#8B5CF6',    // Purple
-  text_color: '#1f2937',
-  background_color: '#ffffff',
+  
+  // Light Mode Colors
+  text_color: '#1f2937',         // Dark gray text
+  background_color: '#ffffff',   // White background
+  surface_color: '#f9fafb',      // Slightly gray surface for cards
+  
+  // Dark Mode Colors
+  dark_background: '#1a1a1a',    // Dark background
+  dark_surface: '#2a2a2a',       // Slightly lighter surface for cards
+  dark_text: '#fafafa',          // Light text for dark mode
 };
 
 export const useEditorStore = create(
@@ -197,7 +206,11 @@ export const useEditorStore = create(
           'primary_color': '--aisb-color-primary',
           'secondary_color': '--aisb-color-secondary',
           'text_color': '--aisb-color-text',
-          'background_color': '--aisb-color-background'
+          'background_color': '--aisb-color-background',
+          'surface_color': '--aisb-color-surface',
+          'dark_background': '--aisb-color-dark-background',
+          'dark_surface': '--aisb-color-dark-surface',
+          'dark_text': '--aisb-color-dark-text'
         };
         
         const cssVarName = varMap[key];

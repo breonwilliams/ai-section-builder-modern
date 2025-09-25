@@ -111,6 +111,10 @@ class Assets {
             'secondary_color' => '#8B5CF6',
             'text_color' => '#1f2937',
             'background_color' => '#ffffff',
+            'surface_color' => '#f9fafb',
+            'dark_background' => '#1a1a1a',
+            'dark_surface' => '#2a2a2a',
+            'dark_text' => '#fafafa',
         ]);
         
         // Generate CSS with custom properties
@@ -123,9 +127,35 @@ class Assets {
         }
         if (!empty($global_settings['text_color'])) {
             $custom_css .= '--aisb-color-text: ' . esc_attr($global_settings['text_color']) . ';';
+            // Generate derived colors from text color
+            $rgb = $this->hex_to_rgb($global_settings['text_color']);
+            if ($rgb) {
+                $custom_css .= '--aisb-color-text-muted: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.7);';
+                $custom_css .= '--aisb-color-border: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.15);';
+                $custom_css .= '--aisb-color-divider: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.1);';
+            }
         }
         if (!empty($global_settings['background_color'])) {
             $custom_css .= '--aisb-color-background: ' . esc_attr($global_settings['background_color']) . ';';
+        }
+        if (!empty($global_settings['surface_color'])) {
+            $custom_css .= '--aisb-color-surface: ' . esc_attr($global_settings['surface_color']) . ';';
+        }
+        if (!empty($global_settings['dark_background'])) {
+            $custom_css .= '--aisb-color-dark-background: ' . esc_attr($global_settings['dark_background']) . ';';
+        }
+        if (!empty($global_settings['dark_surface'])) {
+            $custom_css .= '--aisb-color-dark-surface: ' . esc_attr($global_settings['dark_surface']) . ';';
+        }
+        if (!empty($global_settings['dark_text'])) {
+            $custom_css .= '--aisb-color-dark-text: ' . esc_attr($global_settings['dark_text']) . ';';
+            // Generate derived colors from dark text color
+            $rgb = $this->hex_to_rgb($global_settings['dark_text']);
+            if ($rgb) {
+                $custom_css .= '--aisb-color-dark-text-muted: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.7);';
+                $custom_css .= '--aisb-color-dark-border: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.15);';
+                $custom_css .= '--aisb-color-dark-divider: rgba(' . $rgb['r'] . ', ' . $rgb['g'] . ', ' . $rgb['b'] . ', 0.1);';
+            }
         }
         $custom_css .= '}';
         
@@ -140,6 +170,27 @@ class Assets {
             $asset['version'],
             true
         );
+    }
+    
+    /**
+     * Convert hex color to RGB
+     */
+    private function hex_to_rgb($hex) {
+        $hex = ltrim($hex, '#');
+        
+        if (strlen($hex) == 3) {
+            $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
+            $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
+            $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));
+        } else if (strlen($hex) == 6) {
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+        } else {
+            return false;
+        }
+        
+        return array('r' => $r, 'g' => $g, 'b' => $b);
     }
     
     /**
