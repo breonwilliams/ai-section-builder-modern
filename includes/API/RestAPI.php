@@ -130,6 +130,10 @@ class RestAPI {
             'secondary_color' => '#8B5CF6',
             'text_color' => '#1f2937',
             'background_color' => '#ffffff',
+            'surface_color' => '#f9fafb',
+            'dark_background' => '#1a1a1a',
+            'dark_surface' => '#2a2a2a',
+            'dark_text' => '#fafafa',
         ]);
         
         return rest_ensure_response([
@@ -150,6 +154,10 @@ class RestAPI {
             'secondary_color' => sanitize_hex_color($settings['secondary_color'] ?? '#8B5CF6'),
             'text_color' => sanitize_hex_color($settings['text_color'] ?? '#1f2937'),
             'background_color' => sanitize_hex_color($settings['background_color'] ?? '#ffffff'),
+            'surface_color' => sanitize_hex_color($settings['surface_color'] ?? '#f9fafb'),
+            'dark_background' => sanitize_hex_color($settings['dark_background'] ?? '#1a1a1a'),
+            'dark_surface' => sanitize_hex_color($settings['dark_surface'] ?? '#2a2a2a'),
+            'dark_text' => sanitize_hex_color($settings['dark_text'] ?? '#fafafa'),
         ];
         
         $result = update_option('aisb_global_settings', $sanitized_settings);
