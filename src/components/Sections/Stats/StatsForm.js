@@ -32,7 +32,7 @@ function StatsForm({ content, onChange }) {
     {
       name: 'description',
       label: 'Additional Description',
-      type: 'textarea',
+      type: 'richtext',
       placeholder: 'Optional additional context',
       rows: 2,
       required: false,

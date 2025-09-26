@@ -287,7 +287,7 @@ class SectionRenderer {
                                     <h3 class="aisb-stats__label"><?php echo esc_html($stat['label']); ?></h3>
                                 <?php endif; ?>
                                 <?php if (!empty($stat['description'])): ?>
-                                    <div class="aisb-stats__description"><?php echo esc_html($stat['description']); ?></div>
+                                    <div class="aisb-stats__description"><?php echo wp_kses_post($stat['description']); ?></div>
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>

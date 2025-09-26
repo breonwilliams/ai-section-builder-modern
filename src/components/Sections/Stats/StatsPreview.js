@@ -131,21 +131,34 @@ function StatsPreview({ content }) {
         {/* ITEMS BLOCK - Stats grid instead of cards */}
         {stats && stats.length > 0 && (
           <div className="aisb-stats__grid">
-            {stats.map((stat, index) => (
-              <div key={index} className="aisb-stats__item">
-                {stat.value && (
-                  <div className="aisb-stats__value">{stat.value}</div>
-                )}
+            {stats.map((stat, index) => {
+              // Sanitize the description HTML
+              const sanitizedDescription = stat.description 
+                ? DOMPurify.sanitize(stat.description, {
+                    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li', 'h3', 'h4', 'h5', 'h6'],
+                    ALLOWED_ATTR: ['href', 'target', 'rel']
+                  })
+                : '';
                 
-                {stat.label && (
-                  <div className="aisb-stats__label">{stat.label}</div>
-                )}
-                
-                {stat.description && (
-                  <div className="aisb-stats__description">{stat.description}</div>
-                )}
-              </div>
-            ))}
+              return (
+                <div key={index} className="aisb-stats__item">
+                  {stat.value && (
+                    <div className="aisb-stats__value">{stat.value}</div>
+                  )}
+                  
+                  {stat.label && (
+                    <div className="aisb-stats__label">{stat.label}</div>
+                  )}
+                  
+                  {sanitizedDescription && (
+                    <div 
+                      className="aisb-stats__description"
+                      dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 

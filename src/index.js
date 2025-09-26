@@ -12,6 +12,7 @@ import './styles/components/global-settings.css';
 // Import section styles for preview
 import './styles/sections/hero.css';
 import './styles/sections/features.css';
+import './styles/sections/stats.css';
 import App from './App';
 
 // Configure DOMPurify globally

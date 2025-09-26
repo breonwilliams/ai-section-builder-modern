@@ -232,6 +232,38 @@
   line-height: var(--aisb-section-leading-relaxed);
 }
 
+/* Rich text styles within description */
+.aisb-stats__description p {
+  margin: 0 0 var(--aisb-section-space-xs) 0;
+}
+
+.aisb-stats__description p:last-child {
+  margin-bottom: 0;
+}
+
+.aisb-stats__description ul,
+.aisb-stats__description ol {
+  margin: var(--aisb-section-space-xs) 0;
+  padding-left: var(--aisb-section-space-lg);
+}
+
+.aisb-stats__description li {
+  margin-bottom: var(--aisb-section-space-xs);
+}
+
+.aisb-stats__description a {
+  color: var(--aisb-color-primary);
+  text-decoration: underline;
+}
+
+.aisb-stats__description strong {
+  font-weight: var(--aisb-section-font-semibold);
+}
+
+.aisb-stats__description em {
+  font-style: italic;
+}
+
 /* Mobile adjustments */
 @media (max-width: 640px) {
   .aisb-stats__value {
