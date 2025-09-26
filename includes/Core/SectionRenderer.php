@@ -8,6 +8,22 @@ namespace AISB\Modern\Core;
 class SectionRenderer {
     
     /**
+     * Check if HTML content is actually empty (ignoring br tags and whitespace)
+     * 
+     * @param string $html HTML content to check
+     * @return bool True if content is empty
+     */
+    private function is_content_empty($html) {
+        if (empty($html)) {
+            return true;
+        }
+        // Strip br tags and whitespace
+        $stripped = preg_replace('/<br\s*\/?>/i', '', $html);
+        $stripped = trim(strip_tags($stripped));
+        return empty($stripped);
+    }
+    
+    /**
      * Render a section based on its type
      * 
      * @param array $section Section data
@@ -86,7 +102,7 @@ class SectionRenderer {
                         </div>
                     <?php endif; ?>
                     
-                    <?php if ($outro): ?>
+                    <?php if ($outro && !$this->is_content_empty($outro)): ?>
                         <div class="aisb-hero__outro"><?php echo $outro; ?></div>
                     <?php endif; ?>
                 </div>
@@ -196,7 +212,7 @@ class SectionRenderer {
                     </div>
                 <?php endif; ?>
                 
-                <?php if ($outro): ?>
+                <?php if ($outro && !$this->is_content_empty($outro)): ?>
                     <div class="aisb-features__outro"><?php echo $outro; ?></div>
                 <?php endif; ?>
                 
@@ -234,7 +250,6 @@ class SectionRenderer {
         $theme = esc_attr($content['theme_variant'] ?? 'light');
         $layout = esc_attr($content['layout_variant'] ?? 'content-left');
         $grid_columns = esc_attr($content['grid_columns'] ?? '3');
-        $stat_alignment = esc_attr($content['stat_alignment'] ?? 'center');
         $media_type = $content['media_type'] ?? 'none';
         $image = esc_url($content['featured_image'] ?? '');
         $video = esc_url($content['video_url'] ?? '');
@@ -242,9 +257,6 @@ class SectionRenderer {
         
         $classes = "aisb-section aisb-stats aisb-section--{$theme} aisb-section--{$layout}";
         $classes .= " aisb-stats--{$grid_columns}-columns";
-        if ($stat_alignment && $stat_alignment !== 'center') {
-            $classes .= " aisb-stats--{$stat_alignment}";
-        }
         
         ob_start();
         ?>
@@ -294,7 +306,7 @@ class SectionRenderer {
                     </div>
                 <?php endif; ?>
                 
-                <?php if ($outro): ?>
+                <?php if ($outro && !$this->is_content_empty($outro)): ?>
                     <div class="aisb-stats__outro"><?php echo $outro; ?></div>
                 <?php endif; ?>
                 

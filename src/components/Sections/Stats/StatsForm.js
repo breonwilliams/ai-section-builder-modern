@@ -174,32 +174,6 @@ function StatsForm({ content, onChange }) {
             ]}
           />
 
-          <ToggleGroup
-            label="Stat Alignment"
-            value={content.stat_alignment || 'center'}
-            onChange={(value) => handleChange('stat_alignment', value)}
-            options={[
-              { 
-                value: 'left', 
-                label: 'Left', 
-                icon: 'editor-alignleft',
-                tooltip: 'Left-aligned statistics'
-              },
-              { 
-                value: 'center', 
-                label: 'Center', 
-                icon: 'editor-aligncenter',
-                tooltip: 'Center-aligned statistics'
-              },
-              { 
-                value: 'right', 
-                label: 'Right', 
-                icon: 'editor-alignright',
-                tooltip: 'Right-aligned statistics'
-              },
-            ]}
-          />
-
           <MediaSelector
             mediaType={content.media_type || 'none'}
             onMediaTypeChange={(value) => handleChange('media_type', value)}

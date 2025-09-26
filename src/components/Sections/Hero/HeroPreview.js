@@ -18,6 +18,13 @@ function HeroPreview({ content }) {
   // Sanitize HTML content to prevent XSS
   const sanitizedContent = DOMPurify.sanitize(bodyContent || '');
   const sanitizedOutro = DOMPurify.sanitize(outro_content || '');
+  
+  // Helper to check if content is actually empty (ignoring <br> tags and whitespace)
+  const isContentEmpty = (html) => {
+    if (!html) return true;
+    const stripped = html.replace(/<br\s*\/?>/gi, '').trim();
+    return stripped === '' || stripped === '<p></p>';
+  };
 
   // Extract YouTube video ID from URL
   const getYouTubeId = (url) => {
@@ -74,7 +81,7 @@ function HeroPreview({ content }) {
             </div>
           )}
 
-          {sanitizedOutro && (
+          {sanitizedOutro && !isContentEmpty(sanitizedOutro) && (
             <div
               className="aisb-hero__outro"
               dangerouslySetInnerHTML={{ __html: sanitizedOutro }}

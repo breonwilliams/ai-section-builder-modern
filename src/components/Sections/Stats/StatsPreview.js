@@ -10,7 +10,6 @@ function StatsPreview({ content }) {
     theme_variant = 'light',
     layout_variant = 'content-left',
     grid_columns = '3',
-    stat_alignment = 'center',
     media_type = 'none',
     featured_image,
     video_url,
@@ -21,6 +20,13 @@ function StatsPreview({ content }) {
   // Sanitize HTML content to prevent XSS
   const sanitizedContent = DOMPurify.sanitize(bodyContent || '');
   const sanitizedOutro = DOMPurify.sanitize(outro_content || '');
+  
+  // Helper to check if content is actually empty (ignoring <br> tags and whitespace)
+  const isContentEmpty = (html) => {
+    if (!html) return true;
+    const stripped = html.replace(/<br\s*\/?>/gi, '').trim();
+    return stripped === '' || stripped === '<p></p>';
+  };
 
   // Extract YouTube video ID from URL
   const getYouTubeId = (url) => {
@@ -42,7 +48,6 @@ function StatsPreview({ content }) {
     `aisb-section--${theme_variant}`,
     `aisb-section--${layout_variant}`,
     `aisb-stats--${grid_columns}-columns`,
-    `aisb-stats--${stat_alignment}`,
   ].join(' ');
 
   return (
@@ -163,7 +168,7 @@ function StatsPreview({ content }) {
         )}
 
         {/* FOOTER BLOCK - Identical to Features */}
-        {sanitizedOutro && (
+        {sanitizedOutro && !isContentEmpty(sanitizedOutro) && (
           <div
             className="aisb-stats__outro"
             dangerouslySetInnerHTML={{ __html: sanitizedOutro }}

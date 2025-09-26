@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--aisb-section-space-2xl);
-  margin-bottom: calc(var(--aisb-section-space-2xl) * var(--aisb-golden-ratio, 1.618));
+  margin-bottom: var(--aisb-section-space-xl); /* Reduced from golden ratio calculation */
   align-items: center;
 }
 
@@ -138,7 +138,7 @@
 .aisb-stats__grid {
   display: grid;
   gap: var(--aisb-section-space-xl);
-  margin-top: var(--aisb-section-space-2xl);
+  /* No top margin needed - spacing comes from __top margin-bottom */
 }
 
 /* Grid column variations */
@@ -188,19 +188,6 @@
   flex-direction: column;
   gap: var(--aisb-section-space-sm);
   padding: var(--aisb-section-space-md) 0;
-}
-
-/* Stat alignment variations */
-.aisb-stats--left .aisb-stats__item {
-  text-align: left;
-}
-
-.aisb-stats--center .aisb-stats__item {
-  text-align: center;
-}
-
-.aisb-stats--right .aisb-stats__item {
-  text-align: right;
 }
 
 /* Stat Value - The big number - Mobile first */

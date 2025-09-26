@@ -369,7 +369,6 @@ function getDefaultContent(type) {
         
         // ITEMS BLOCK - Stats specific
         grid_columns: '3',
-        stat_alignment: 'center',
         stats: [
           {
             value: '99%',
