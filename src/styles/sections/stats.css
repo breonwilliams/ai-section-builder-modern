@@ -203,31 +203,34 @@
   text-align: right;
 }
 
-/* Stat Value - The big number */
+/* Stat Value - The big number - Mobile first */
 .aisb-stats__value {
   font-family: var(--aisb-section-font-heading, var(--aisb-section-font-family));
-  font-size: var(--aisb-section-text-4xl);
+  font-size: 48px; /* Mobile first - large impact */
   font-weight: var(--aisb-section-font-bold);
-  color: var(--aisb-color-primary);
+  color: var(--section-heading, var(--aisb-color-text)); /* Use text color, not primary */
   line-height: 1;
   margin: 0;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
-/* Stat Label - The description */
+/* Stat Label - The description - Mobile first */
 .aisb-stats__label {
   font-family: var(--aisb-section-font-body, var(--aisb-section-font-family));
-  font-size: var(--aisb-section-text-lg);
-  font-weight: var(--aisb-section-font-medium);
+  font-size: 18px; /* Mobile first */
+  font-weight: var(--aisb-section-font-semibold);
   color: var(--section-heading, var(--aisb-color-text));
   margin: 0;
-  line-height: var(--aisb-section-leading-normal);
+  margin-bottom: 8px;
+  line-height: 1.3;
 }
 
-/* Stat Description - Additional context */
+/* Stat Description - Additional context - Mobile first */
 .aisb-stats__description {
   font-family: var(--aisb-section-font-body, var(--aisb-section-font-family));
-  font-size: var(--aisb-section-text-base);
-  color: var(--aisb-color-text-muted);
+  font-size: 14px; /* Mobile first - smaller supporting text */
+  color: var(--aisb-color-text-muted); /* Muted text for hierarchy */
   margin: 0;
   line-height: var(--aisb-section-leading-relaxed);
 }
@@ -264,20 +267,49 @@
   font-style: italic;
 }
 
-/* Mobile adjustments */
-@media (max-width: 640px) {
+/* Responsive breakpoints - Mobile first approach */
+
+/* Small tablets - 640px and up */
+@media (min-width: 640px) {
   .aisb-stats__value {
-    font-size: var(--aisb-section-text-3xl);
+    font-size: 56px; /* Larger on small tablets */
+  }
+}
+
+/* Tablets - 768px and up */
+@media (min-width: 768px) {
+  .aisb-stats__value {
+    font-size: 64px; /* Even larger on tablets */
   }
   
   .aisb-stats__label {
-    font-size: var(--aisb-section-text-base);
+    font-size: 20px; /* Slightly larger label */
+  }
+}
+
+/* Desktop - 1024px and up */
+@media (min-width: 1024px) {
+  .aisb-stats__value {
+    font-size: 72px; /* Full size on desktop */
+  }
+  
+  .aisb-stats__label {
+    font-size: 22px; /* Desktop label size */
+  }
+  
+  .aisb-stats__description {
+    font-size: 15px; /* Slightly larger description */
   }
 }
 
 /* Dark Mode Overrides */
 /* Dark Mode Eyebrow - Use muted text for proper hierarchy */
 .aisb-section--dark .aisb-stats__eyebrow {
+  color: var(--aisb-color-dark-text-muted);
+}
+
+/* Dark Mode Description - Use muted text for hierarchy */
+.aisb-section--dark .aisb-stats__description {
   color: var(--aisb-color-dark-text-muted);
 }
 

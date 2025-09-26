@@ -194,10 +194,65 @@ Every section MUST follow this exact structure to enable AI pattern recognition:
 ```
 
 #### ITEMS BLOCK (Section-specific)
-- Features: `cards` array with heading, content, image, link
-- Stats: `stats` array with value, label, description
-- FAQ: `questions` array with question, answer
-- Testimonials: `testimonials` array with content, author, role
+
+**Features Section:**
+```javascript
+{
+  grid_columns: '3',        // '2' | '3' | '4'
+  card_alignment: 'left',   // 'left' | 'center' | 'right'
+  cards: [
+    {
+      heading: '',
+      content: '',         // Rich text
+      image: '',
+      link: '',
+      link_text: '',
+      link_target: '_self'
+    }
+  ]
+}
+```
+
+**Stats Section:**
+```javascript
+{
+  grid_columns: '3',        // '2' | '3' | '4'
+  stat_alignment: 'center', // 'left' | 'center' | 'right'
+  stats: [
+    {
+      value: '',           // e.g., '99%', '500+'
+      label: '',           // Main description
+      description: ''      // Rich text (optional)
+    }
+  ]
+}
+```
+
+**FAQ Section:**
+```javascript
+{
+  questions: [
+    {
+      question: '',
+      answer: ''          // Rich text
+    }
+  ]
+}
+```
+
+**Testimonials Section:**
+```javascript
+{
+  testimonials: [
+    {
+      content: '',        // Rich text quote
+      author: '',         // Person's name
+      role: '',          // Title/company
+      image: ''          // Avatar (optional)
+    }
+  ]
+}
+```
 
 #### FOOTER BLOCK (Always identical)
 ```javascript
@@ -276,8 +331,10 @@ Every section MUST follow this exact structure to enable AI pattern recognition:
 - [ ] Only modify items styles
 - [ ] Use CSS variables for colors
 
-#### Import CSS
-- [ ] Update `src/styles/frontend.css`
+#### Import CSS (CRITICAL - Both locations required)
+- [ ] Update `src/styles/frontend.css` - For frontend rendering
+- [ ] Update `src/index.js` - For editor preview styling
+- [ ] **NOTE**: Missing either import will cause styles to not appear in that context
 
 ### 6. Testing
 
@@ -286,10 +343,22 @@ Every section MUST follow this exact structure to enable AI pattern recognition:
 - [ ] All fields save correctly
 - [ ] Preview updates in real-time
 - [ ] Frontend renders properly
-- [ ] Theme variants work
-- [ ] Layout variants work
-- [ ] Responsive design works
+- [ ] Theme variants work (light/dark)
+- [ ] Layout variants work (left/right/center)
+- [ ] Responsive design works (all breakpoints)
 - [ ] Items add/remove/reorder works
+
+#### Additional Critical Tests:
+- [ ] **Styles appear in BOTH editor preview AND frontend**
+- [ ] **Rich text fields render HTML correctly (not escaped)**
+- [ ] **Colors are consistent across sections:**
+  - Eyebrow uses muted text color
+  - Values/headings use text color (not primary)
+  - Descriptions use muted text color
+- [ ] **Font sizes scale properly at all breakpoints**
+- [ ] **Dark mode colors switch correctly**
+- [ ] **Media (image/video) displays properly**
+- [ ] **Buttons render and align correctly**
 
 ## Why This Structure Matters for AI
 
@@ -306,3 +375,131 @@ Every section MUST follow this exact structure to enable AI pattern recognition:
 4. **Color Hardcoding**: Always use CSS variables
 5. **Sanitization**: Always sanitize in PHP
 6. **Responsive**: Test all screen sizes
+
+## Rich Text Field Implementation
+
+### When Using Rich Text in Repeater Fields:
+
+1. **Form Component Setup**:
+   ```javascript
+   {
+     name: 'description',
+     type: 'richtext',  // NOT 'textarea'
+     label: 'Description',
+     rows: 2,
+     help: 'Optional rich text content'
+   }
+   ```
+
+2. **Preview Component Rendering**:
+   ```javascript
+   // Sanitize HTML first
+   const sanitizedContent = DOMPurify.sanitize(item.description, {
+     ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li'],
+     ALLOWED_ATTR: ['href', 'target', 'rel']
+   });
+   
+   // Render with dangerouslySetInnerHTML
+   <div 
+     className="aisb-section__description"
+     dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+   />
+   ```
+
+3. **PHP Renderer**:
+   ```php
+   // Use wp_kses_post() for rich text, NOT esc_html()
+   <?php echo wp_kses_post($item['description']); ?>
+   ```
+
+4. **CSS Support**:
+   ```css
+   .aisb-section__description p { margin-bottom: 0.5em; }
+   .aisb-section__description ul { padding-left: 1.5em; }
+   /* Add styles for all allowed HTML elements */
+   ```
+
+## Color Consistency Standards
+
+### MANDATORY Color Usage for Visual Hierarchy:
+
+1. **Eyebrow Headings** (ALL sections):
+   ```css
+   .aisb-section__eyebrow {
+     color: var(--aisb-color-text-muted); /* Light mode */
+   }
+   .aisb-section--dark .aisb-section__eyebrow {
+     color: var(--aisb-color-dark-text-muted); /* Dark mode override */
+   }
+   ```
+
+2. **Main Headings/Values**:
+   ```css
+   .aisb-section__heading,
+   .aisb-section__value {
+     color: var(--section-heading, var(--aisb-color-text));
+   }
+   ```
+
+3. **Body Content**:
+   ```css
+   .aisb-section__body {
+     color: var(--section-body, var(--aisb-color-text));
+   }
+   ```
+
+4. **Secondary/Description Text**:
+   ```css
+   .aisb-section__description,
+   .aisb-section__caption {
+     color: var(--aisb-color-text-muted);
+   }
+   .aisb-section--dark .aisb-section__description {
+     color: var(--aisb-color-dark-text-muted);
+   }
+   ```
+
+5. **Links/Interactive Elements**:
+   ```css
+   .aisb-section__link {
+     color: var(--aisb-color-primary);
+   }
+   ```
+
+**NEVER use primary color for non-interactive text elements**
+
+## Responsive Typography Standards
+
+### Mobile-First Font Sizing:
+
+**ALWAYS check reference plugin font sizes first!** Don't rely solely on CSS variables.
+
+#### Example: Stats Section Font Sizes
+```css
+/* Mobile first (base) */
+.aisb-stats__value {
+  font-size: 48px; /* Specific size, not var() */
+}
+
+/* Small tablets - 640px+ */
+@media (min-width: 640px) {
+  .aisb-stats__value { font-size: 56px; }
+}
+
+/* Tablets - 768px+ */
+@media (min-width: 768px) {
+  .aisb-stats__value { font-size: 64px; }
+}
+
+/* Desktop - 1024px+ */
+@media (min-width: 1024px) {
+  .aisb-stats__value { font-size: 72px; }
+}
+```
+
+### Standard Breakpoints:
+- Mobile: Default (no media query)
+- Small tablets: `@media (min-width: 640px)`
+- Tablets: `@media (min-width: 768px)`
+- Desktop: `@media (min-width: 1024px)`
+- Large desktop: `@media (min-width: 1280px)` (optional)
