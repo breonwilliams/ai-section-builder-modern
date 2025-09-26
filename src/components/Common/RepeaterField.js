@@ -2,6 +2,7 @@ import React from 'react';
 import RichTextEditor from './RichTextEditor';
 import AutocompleteInput from './AutocompleteInput';
 import MediaLibraryButton from './MediaLibraryButton';
+import StarRatingInput from './StarRatingInput';
 
 function RepeaterField({ items = [], onChange, fields, itemLabel = 'Item' }) {
   const handleAddItem = () => {
@@ -212,6 +213,17 @@ function RepeaterField({ items = [], onChange, fields, itemLabel = 'Item' }) {
               ))}
             </select>
             {field.help && <small>{field.help}</small>}
+          </div>
+        );
+
+      case 'rating':
+        return (
+          <div key={field.name} className="aisb-form-group">
+            <StarRatingInput
+              label={field.label}
+              value={value || field.defaultValue || 5}
+              onChange={(newValue) => handleUpdateItem(index, field.name, newValue)}
+            />
           </div>
         );
 

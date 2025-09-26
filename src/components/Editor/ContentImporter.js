@@ -168,6 +168,13 @@ Why Choose Us
                           ))}
                         </ul>
                       )}
+                      {section.type === 'testimonials' && section.content.testimonials && (
+                        <ul>
+                          {section.content.testimonials.map((testimonial, i) => (
+                            <li key={i}>{testimonial.author} - {testimonial.role}</li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                 ))}

@@ -3,6 +3,8 @@ import { useEditor } from '../Providers/EditorProvider';
 import HeroPreview from '../Sections/Hero/HeroPreview';
 import FeaturesPreview from '../Sections/Features/FeaturesPreview';
 import StatsPreview from '../Sections/Stats/StatsPreview';
+import TestimonialsPreview from '../Sections/Testimonials/TestimonialsPreview';
+import ChecklistPreview from '../Sections/Checklist/ChecklistPreview';
 
 function Canvas() {
   const { sections, currentSectionIndex, setCurrentSection } = useEditor();
@@ -36,6 +38,12 @@ function Canvas() {
             )}
             {section.type === 'stats' && (
               <StatsPreview content={section.content} />
+            )}
+            {section.type === 'testimonials' && (
+              <TestimonialsPreview content={section.content} />
+            )}
+            {section.type === 'checklist' && (
+              <ChecklistPreview content={section.content} />
             )}
           </div>
         ))}

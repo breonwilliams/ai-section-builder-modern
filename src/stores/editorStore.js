@@ -395,6 +395,84 @@ function getDefaultContent(type) {
         theme_variant: 'light',
         layout_variant: 'content-left',
       };
+    case 'testimonials':
+      return {
+        // HEADER BLOCK - Standard fields
+        eyebrow_heading: '',
+        heading: 'What Our Clients Say',
+        content: '<p>Hear from those who trust us</p>',
+        media_type: 'none',
+        featured_image: '',
+        video_url: '',
+        
+        // ITEMS BLOCK - Testimonials specific
+        grid_columns: '3',
+        testimonials: [
+          {
+            rating: 5,
+            content: '<p>This service exceeded our expectations in every way. Highly recommended!</p>',
+            author: 'Jane Smith',
+            role: 'Marketing Director, Tech Corp',
+            avatar: '',
+          },
+          {
+            rating: 5,
+            content: '<p>Professional, reliable, and results-driven. Couldn\'t ask for more.</p>',
+            author: 'John Doe',
+            role: 'CEO, StartupCo',
+            avatar: '',
+          },
+          {
+            rating: 4.5,
+            content: '<p>The team went above and beyond to deliver exceptional quality.</p>',
+            author: 'Sarah Johnson',
+            role: 'Product Manager, Innovation Labs',
+            avatar: '',
+          },
+        ],
+        
+        // FOOTER BLOCK - Standard fields
+        outro_content: '',
+        buttons: [],
+        
+        // SETTINGS - Standard fields
+        theme_variant: 'light',
+        layout_variant: 'content-left',
+      };
+    case 'checklist':
+      return {
+        // HEADER BLOCK - Standard fields
+        eyebrow_heading: '',
+        heading: 'Everything You Need',
+        content: '<p>Our comprehensive solution includes:</p>',
+        media_type: 'none',
+        featured_image: '',
+        video_url: '',
+        
+        // ITEMS BLOCK - Checklist specific (inline with content, Hero pattern)
+        items: [
+          {
+            heading: 'Feature Complete',
+            content: 'All the tools you need in one place',
+          },
+          {
+            heading: 'Easy to Use',
+            content: 'Intuitive interface designed for everyone',
+          },
+          {
+            heading: '24/7 Support',
+            content: 'Help is always available when you need it',
+          },
+        ],
+        
+        // FOOTER BLOCK - Standard fields
+        outro_content: '',
+        buttons: [],
+        
+        // SETTINGS - Standard fields
+        theme_variant: 'light',
+        layout_variant: 'content-left',
+      };
     default:
       return {};
   }

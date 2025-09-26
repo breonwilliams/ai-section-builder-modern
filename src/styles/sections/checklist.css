@@ -1,0 +1,360 @@
+/**
+ * Checklist Section Styles
+ * Uses Hero pattern with inline checklist items
+ */
+
+/* Base Checklist Structure */
+.aisb-checklist {
+  position: relative;
+  padding: var(--aisb-section-space-3xl) 0;
+  background: var(--section-bg, var(--aisb-color-background));
+  color: var(--section-text, var(--aisb-color-text));
+  transition: all var(--aisb-section-transition-base);
+}
+
+/* Container */
+.aisb-checklist__container {
+  max-width: var(--aisb-section-max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--aisb-section-space-lg);
+}
+
+/* =========================================
+   Layout Variants
+   ========================================= */
+
+.aisb-checklist__columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--aisb-section-space-2xl);
+  align-items: center;
+}
+
+/* Responsive grid - Desktop */
+@media (min-width: 1024px) {
+  .aisb-section--content-left .aisb-checklist__columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+  
+  .aisb-section--content-right .aisb-checklist__columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    direction: rtl;
+  }
+  
+  .aisb-section--content-right .aisb-checklist__content-column,
+  .aisb-section--content-right .aisb-checklist__media-column {
+    direction: ltr;
+  }
+}
+
+@media (min-width: 1280px) {
+  .aisb-section--content-left .aisb-checklist__columns,
+  .aisb-section--content-right .aisb-checklist__columns {
+    gap: 96px;
+  }
+}
+
+/* Center layout */
+.aisb-section--center .aisb-checklist__center {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aisb-section--center .aisb-checklist__content {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.aisb-section--center .aisb-checklist__outro {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.aisb-section--center .aisb-checklist__items {
+  width: fit-content;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.aisb-section--center .aisb-checklist__media {
+  margin-top: 48px;
+}
+
+/* =========================================
+   Content Elements
+   ========================================= */
+.aisb-checklist__eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  color: var(--aisb-color-text-muted);
+}
+
+.aisb-checklist__heading {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--section-heading, var(--aisb-color-text));
+  margin: 0 0 16px 0;
+}
+
+.aisb-checklist__content {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--section-body, var(--aisb-color-text));
+  margin: 0 0 32px 0;
+}
+
+.aisb-checklist__content p {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: inherit;
+}
+
+.aisb-checklist__content p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================
+   Checklist Items
+   ========================================= */
+.aisb-checklist__items {
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.aisb-checklist__item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.aisb-checklist__item-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+}
+
+.aisb-checklist__item-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--aisb-color-primary);
+}
+
+.aisb-checklist__item-content {
+  flex: 1;
+}
+
+.aisb-checklist__item-heading {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 8px 0;
+  color: var(--section-text, var(--aisb-color-text));
+}
+
+.aisb-checklist__item-text {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--aisb-color-text-muted);
+}
+
+/* =========================================
+   Buttons
+   ========================================= */
+.aisb-checklist__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: var(--aisb-section-space-xl);
+}
+
+.aisb-section--center .aisb-checklist__buttons {
+  justify-content: center;
+}
+
+/* =========================================
+   Outro Content
+   ========================================= */
+.aisb-checklist__outro {
+  margin: 32px 0 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--section-outro, var(--aisb-color-text));
+}
+
+.aisb-checklist__outro p {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: inherit;
+}
+
+.aisb-checklist__outro p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================
+   Media Column
+   ========================================= */
+.aisb-checklist__media-column {
+  position: relative;
+  width: 100%;
+}
+
+.aisb-checklist__media {
+  position: relative;
+  width: 100%;
+  border-radius: var(--aisb-section-radius-image, var(--aisb-section-radius-lg));
+  overflow: hidden;
+}
+
+.aisb-checklist__media img,
+.aisb-checklist__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.aisb-checklist__media iframe,
+.aisb-checklist__media video,
+.aisb-checklist__video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+}
+
+/* =========================================
+   Theme System - CSS Variable Scoping
+   ========================================= */
+.aisb-section--light {
+  --section-bg: var(--aisb-color-background);
+  --section-text: var(--aisb-color-text);
+  --section-heading: var(--aisb-color-text);
+  --section-body: var(--aisb-color-text);
+  --section-outro: var(--aisb-color-text);
+}
+
+.aisb-section--dark {
+  --section-bg: var(--aisb-color-dark-background);
+  --section-text: var(--aisb-color-dark-text);
+  --section-heading: var(--aisb-color-dark-text);
+  --section-body: var(--aisb-color-dark-text);
+  --section-outro: var(--aisb-color-dark-text);
+}
+
+/* Dark Mode Overrides */
+.aisb-section--dark .aisb-checklist__eyebrow {
+  color: var(--aisb-color-dark-text-muted);
+}
+
+.aisb-section--dark .aisb-checklist__item-text {
+  color: var(--aisb-color-dark-text-muted);
+}
+
+/* =========================================
+   Responsive Design - Mobile First
+   ========================================= */
+@media (min-width: 640px) {
+  .aisb-checklist__buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .aisb-checklist__eyebrow {
+    font-size: 14px;
+  }
+  
+  .aisb-checklist__heading {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .aisb-checklist__content,
+  .aisb-checklist__outro {
+    font-size: 17px;
+  }
+  
+  .aisb-checklist__content p,
+  .aisb-checklist__outro p {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .aisb-checklist__heading {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .aisb-checklist {
+    padding: var(--aisb-section-space-2xl) 0;
+  }
+  
+  .aisb-checklist__container {
+    padding: 0 var(--aisb-section-space-md);
+  }
+  
+  .aisb-checklist__eyebrow {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+  
+  .aisb-checklist__heading {
+    font-size: 48px;
+    margin-bottom: 24px;
+  }
+  
+  .aisb-checklist__content {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+  
+  .aisb-checklist__outro {
+    font-size: 18px;
+  }
+  
+  .aisb-checklist__content p,
+  .aisb-checklist__outro p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+}
+
+@media (min-width: 1536px) {
+  .aisb-checklist__heading {
+    font-size: 52px;
+  }
+  
+  .aisb-checklist__content,
+  .aisb-checklist__outro {
+    font-size: 19px;
+  }
+  
+  .aisb-checklist__content p,
+  .aisb-checklist__outro p {
+    font-size: 19px;
+  }
+}

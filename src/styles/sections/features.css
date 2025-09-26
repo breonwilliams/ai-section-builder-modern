@@ -73,16 +73,34 @@
 
 .aisb-features__heading {
   font-family: var(--aisb-section-font-heading, var(--aisb-section-font-family));
-  font-size: 28px; /* Mobile first */
+  font-size: 32px; /* Mobile first - matches reference */
   font-weight: var(--aisb-section-font-bold);
   line-height: var(--aisb-section-leading-tight);
   color: var(--section-heading, var(--aisb-color-text));
   margin: 0;
 }
 
+@media (min-width: 640px) {
+  .aisb-features__heading {
+    font-size: 36px; /* Small tablet */
+  }
+}
+
 @media (min-width: 768px) {
   .aisb-features__heading {
-    font-size: 36px; /* Desktop size */
+    font-size: 40px; /* Tablet */
+  }
+}
+
+@media (min-width: 1024px) {
+  .aisb-features__heading {
+    font-size: 48px; /* Desktop - matches reference */
+  }
+}
+
+@media (min-width: 1280px) {
+  .aisb-features__heading {
+    font-size: 52px; /* Large desktop */
   }
 }
 

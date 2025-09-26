@@ -13,6 +13,8 @@ import './styles/components/global-settings.css';
 import './styles/sections/hero.css';
 import './styles/sections/features.css';
 import './styles/sections/stats.css';
+import './styles/sections/testimonials.css';
+import './styles/sections/checklist.css';
 import App from './App';
 
 // Configure DOMPurify globally

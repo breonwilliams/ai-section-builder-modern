@@ -1597,6 +1597,54 @@ body.aisb-editor-active .media-toolbar-primary input[type="search"],
 }
 
 /* =========================================
+   Star Rating Input Component
+   ========================================= */
+.aisb-star-rating-input {
+  margin-bottom: var(--aisb-editor-space-lg);
+}
+
+.aisb-star-rating-input__container {
+  display: flex;
+  align-items: center;
+  gap: var(--aisb-editor-space-md);
+}
+
+.aisb-star-rating-input__stars {
+  display: flex;
+  gap: 4px;
+}
+
+.aisb-star-rating-input__star {
+  background: var(--aisb-transparent, transparent);
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--aisb-editor-text-muted);
+  transition: color 0.2s ease, transform 0.1s ease;
+  padding: 2px;
+}
+
+.aisb-star-rating-input__star:hover {
+  transform: scale(1.1);
+}
+
+.aisb-star-rating-input__star.filled {
+  color: #f59e0b;
+}
+
+.aisb-star-rating-input__star.half {
+  color: #f59e0b;
+  opacity: 0.5;
+}
+
+.aisb-star-rating-input__value {
+  font-size: var(--aisb-editor-text-sm);
+  color: var(--aisb-editor-text-secondary);
+  font-weight: var(--aisb-editor-font-medium);
+}
+
+/* =========================================
    Utility Variables
    ========================================= */
 :root {

@@ -3,6 +3,8 @@ import { useEditor } from '../Providers/EditorProvider';
 import HeroForm from '../Sections/Hero/HeroForm';
 import FeaturesForm from '../Sections/Features/FeaturesForm';
 import StatsForm from '../Sections/Stats/StatsForm';
+import TestimonialsForm from '../Sections/Testimonials/TestimonialsForm';
+import ChecklistForm from '../Sections/Checklist/ChecklistForm';
 import GlobalSettings from './GlobalSettings';
 import Icon from '../Common/Icon';
 
@@ -104,6 +106,30 @@ function LeftSidebar() {
                   Display impressive numbers
                 </div>
               </button>
+              <button
+                className="aisb-section-card"
+                onClick={() => handleAddSection('testimonials')}
+              >
+                <div className="aisb-section-card__icon">
+                  <Icon name="testimonials" size="large" />
+                </div>
+                <div className="aisb-section-card__title">Testimonials</div>
+                <div className="aisb-section-card__desc">
+                  Share customer reviews
+                </div>
+              </button>
+              <button
+                className="aisb-section-card"
+                onClick={() => handleAddSection('checklist')}
+              >
+                <div className="aisb-section-card__icon">
+                  <Icon name="checklist" size="large" />
+                </div>
+                <div className="aisb-section-card__title">Checklist</div>
+                <div className="aisb-section-card__desc">
+                  List features and benefits
+                </div>
+              </button>
             </div>
           </div>
         ) : (
@@ -122,6 +148,20 @@ function LeftSidebar() {
             )}
             {currentSection.type === 'stats' && (
               <StatsForm
+                content={currentSection.content}
+                onChange={(updates) => updateSection(currentSectionIndex, updates)}
+              />
+            )}
+            
+            {currentSection.type === 'testimonials' && (
+              <TestimonialsForm
+                content={currentSection.content}
+                onChange={(updates) => updateSection(currentSectionIndex, updates)}
+              />
+            )}
+            
+            {currentSection.type === 'checklist' && (
+              <ChecklistForm
                 content={currentSection.content}
                 onChange={(updates) => updateSection(currentSectionIndex, updates)}
               />
