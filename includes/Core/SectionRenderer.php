@@ -27,6 +27,8 @@ class SectionRenderer {
                 return $this->render_hero($content);
             case 'features':
                 return $this->render_features($content);
+            case 'stats':
+                return $this->render_stats($content);
             default:
                 return '';
         }
@@ -200,6 +202,104 @@ class SectionRenderer {
                 
                 <?php if (!empty($buttons)): ?>
                     <div class="aisb-features__buttons">
+                        <?php foreach ($buttons as $button): ?>
+                            <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
+                               class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>"
+                               target="<?php echo esc_attr($button['target'] ?? '_self'); ?>"
+                               <?php if (($button['target'] ?? '_self') === '_blank'): ?>rel="noopener noreferrer"<?php endif; ?>>
+                                <?php echo esc_html($button['text'] ?? 'Button'); ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </section>
+        <?php
+        return ob_get_clean();
+    }
+    
+    /**
+     * Render stats section
+     * 
+     * @param array $content Section content
+     * @return string HTML
+     */
+    private function render_stats($content) {
+        // Extract data with defaults
+        $eyebrow = esc_html($content['eyebrow_heading'] ?? '');
+        $heading = esc_html($content['heading'] ?? '');
+        $body = wp_kses_post($content['content'] ?? '');
+        $outro = wp_kses_post($content['outro_content'] ?? '');
+        $stats = $content['stats'] ?? [];
+        $theme = esc_attr($content['theme_variant'] ?? 'light');
+        $layout = esc_attr($content['layout_variant'] ?? 'content-left');
+        $grid_columns = esc_attr($content['grid_columns'] ?? '3');
+        $stat_alignment = esc_attr($content['stat_alignment'] ?? 'center');
+        $media_type = $content['media_type'] ?? 'none';
+        $image = esc_url($content['featured_image'] ?? '');
+        $video = esc_url($content['video_url'] ?? '');
+        $buttons = $content['buttons'] ?? [];
+        
+        $classes = "aisb-section aisb-stats aisb-section--{$theme} aisb-section--{$layout}";
+        $classes .= " aisb-stats--{$grid_columns}-columns";
+        if ($stat_alignment && $stat_alignment !== 'center') {
+            $classes .= " aisb-stats--{$stat_alignment}";
+        }
+        
+        ob_start();
+        ?>
+        <section class="<?php echo $classes; ?>">
+            <div class="aisb-stats__container">
+                <div class="aisb-stats__top">
+                    <div class="aisb-stats__content">
+                        <?php if ($eyebrow): ?>
+                            <div class="aisb-stats__eyebrow"><?php echo $eyebrow; ?></div>
+                        <?php endif; ?>
+                        
+                        <?php if ($heading): ?>
+                            <h2 class="aisb-stats__heading"><?php echo $heading; ?></h2>
+                        <?php endif; ?>
+                        
+                        <?php if ($body): ?>
+                            <div class="aisb-stats__body"><?php echo $body; ?></div>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <?php if ($media_type !== 'none'): ?>
+                        <div class="aisb-stats__media">
+                            <?php if ($media_type === 'image' && $image): ?>
+                                <img src="<?php echo $image; ?>" alt="<?php echo esc_attr($heading); ?>" class="aisb-stats__image">
+                            <?php elseif ($media_type === 'video' && $video): ?>
+                                <?php echo $this->render_video_embed($video); ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                
+                <?php if (!empty($stats)): ?>
+                    <div class="aisb-stats__grid">
+                        <?php foreach ($stats as $stat): ?>
+                            <div class="aisb-stats__item">
+                                <?php if (!empty($stat['value'])): ?>
+                                    <div class="aisb-stats__value"><?php echo esc_html($stat['value']); ?></div>
+                                <?php endif; ?>
+                                <?php if (!empty($stat['label'])): ?>
+                                    <h3 class="aisb-stats__label"><?php echo esc_html($stat['label']); ?></h3>
+                                <?php endif; ?>
+                                <?php if (!empty($stat['description'])): ?>
+                                    <div class="aisb-stats__description"><?php echo esc_html($stat['description']); ?></div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if ($outro): ?>
+                    <div class="aisb-stats__outro"><?php echo $outro; ?></div>
+                <?php endif; ?>
+                
+                <?php if (!empty($buttons)): ?>
+                    <div class="aisb-stats__buttons">
                         <?php foreach ($buttons as $button): ?>
                             <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
                                class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>"

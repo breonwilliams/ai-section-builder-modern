@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useEditor } from '../Providers/EditorProvider';
 import HeroForm from '../Sections/Hero/HeroForm';
 import FeaturesForm from '../Sections/Features/FeaturesForm';
+import StatsForm from '../Sections/Stats/StatsForm';
 import GlobalSettings from './GlobalSettings';
 import Icon from '../Common/Icon';
 
@@ -91,6 +92,18 @@ function LeftSidebar() {
                   Showcase key features with cards
                 </div>
               </button>
+              <button
+                className="aisb-section-card"
+                onClick={() => handleAddSection('stats')}
+              >
+                <div className="aisb-section-card__icon">
+                  <Icon name="stats" size="large" />
+                </div>
+                <div className="aisb-section-card__title">Stats</div>
+                <div className="aisb-section-card__desc">
+                  Display impressive numbers
+                </div>
+              </button>
             </div>
           </div>
         ) : (
@@ -103,6 +116,12 @@ function LeftSidebar() {
             )}
             {currentSection.type === 'features' && (
               <FeaturesForm
+                content={currentSection.content}
+                onChange={(updates) => updateSection(currentSectionIndex, updates)}
+              />
+            )}
+            {currentSection.type === 'stats' && (
+              <StatsForm
                 content={currentSection.content}
                 onChange={(updates) => updateSection(currentSectionIndex, updates)}
               />

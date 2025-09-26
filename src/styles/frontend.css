@@ -9,3 +9,4 @@
 /* Import section styles */
 @import './sections/hero.css';
 @import './sections/features.css';
+@import './sections/stats.css';

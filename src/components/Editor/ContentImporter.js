@@ -161,6 +161,13 @@ Why Choose Us
                           ))}
                         </ul>
                       )}
+                      {section.type === 'stats' && section.content.stats && (
+                        <ul>
+                          {section.content.stats.map((stat, i) => (
+                            <li key={i}>{stat.value} - {stat.label}</li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                 ))}

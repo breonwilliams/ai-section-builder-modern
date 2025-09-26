@@ -357,6 +357,45 @@ function getDefaultContent(type) {
         ],
         buttons: [],
       };
+    case 'stats':
+      return {
+        // HEADER BLOCK - Standard fields
+        eyebrow_heading: '',
+        heading: 'By the Numbers',
+        content: '<p>Our impact speaks for itself</p>',
+        media_type: 'none',
+        featured_image: '',
+        video_url: '',
+        
+        // ITEMS BLOCK - Stats specific
+        grid_columns: '3',
+        stat_alignment: 'center',
+        stats: [
+          {
+            value: '99%',
+            label: 'Customer Satisfaction',
+            description: '',
+          },
+          {
+            value: '500+',
+            label: 'Projects Completed',
+            description: '',
+          },
+          {
+            value: '24/7',
+            label: 'Support Available',
+            description: '',
+          },
+        ],
+        
+        // FOOTER BLOCK - Standard fields
+        outro_content: '',
+        buttons: [],
+        
+        // SETTINGS - Standard fields
+        theme_variant: 'light',
+        layout_variant: 'content-left',
+      };
     default:
       return {};
   }

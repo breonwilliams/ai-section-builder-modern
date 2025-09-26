@@ -158,3 +158,151 @@ $display_mode = get_option( 'aisb_display_mode', 'contained' );
 ---
 
 **Remember**: This plugin must be professional-grade. No shortcuts. No hacks. Only proper implementations that will work reliably for years to come.
+
+---
+
+# Section Development Standards & Checklist
+
+## Standardized Section Structure for AI Consistency
+
+Every section MUST follow this exact structure to enable AI pattern recognition:
+
+```
+┌─────────────────────────────────────┐
+│         HEADER BLOCK                │
+├─────────────────────────────────────┤
+│         ITEMS BLOCK                 │  ← Only this varies between sections
+├─────────────────────────────────────┤
+│         FOOTER BLOCK                │
+├─────────────────────────────────────┤
+│         SETTINGS                    │
+└─────────────────────────────────────┘
+```
+
+### Standard Field Structure (ALL Sections)
+
+#### HEADER BLOCK (Always identical)
+```javascript
+{
+  eyebrow_heading: '',        // Small text above main heading
+  heading: '',                // Main section title
+  content: '',                // Rich text content/description
+  media_type: 'none',         // 'none' | 'image' | 'video'
+  featured_image: '',         // Image URL when media_type is 'image'
+  video_url: ''              // Video URL when media_type is 'video'
+}
+```
+
+#### ITEMS BLOCK (Section-specific)
+- Features: `cards` array with heading, content, image, link
+- Stats: `stats` array with value, label, description
+- FAQ: `questions` array with question, answer
+- Testimonials: `testimonials` array with content, author, role
+
+#### FOOTER BLOCK (Always identical)
+```javascript
+{
+  outro_content: '',          // Rich text content after items
+  buttons: [                  // Repeatable CTA buttons
+    {
+      text: '',
+      url: '',
+      style: 'primary',       // 'primary' | 'secondary' | 'ghost'
+      target: '_self'         // '_self' | '_blank'
+    }
+  ]
+}
+```
+
+#### SETTINGS (Always identical)
+```javascript
+{
+  theme_variant: 'light',     // 'light' | 'dark'
+  layout_variant: 'content-left'  // 'content-left' | 'content-right' | 'center'
+}
+```
+
+## New Section Implementation Checklist
+
+### 1. Frontend Components
+
+#### Create Form Component
+- [ ] File: `src/components/Sections/[Name]/[Name]Form.js`
+- [ ] Include ALL header fields (copy from Features)
+- [ ] Include section-specific items repeater
+- [ ] Include ALL footer fields (copy from Features)
+- [ ] Include ALL settings fields
+- [ ] Use exact field names - NO variations
+
+#### Create Preview Component
+- [ ] File: `src/components/Sections/[Name]/[Name]Preview.js`
+- [ ] Copy Features HTML structure exactly
+- [ ] Only modify items rendering section
+- [ ] Keep header/footer HTML identical
+
+### 2. Store Integration
+
+#### Update editorStore.js
+- [ ] Add case in `getDefaultContent()`
+- [ ] Include ALL standard fields
+- [ ] Follow exact naming convention
+
+### 3. Editor Integration
+
+#### Update LeftSidebar.js
+- [ ] Import form component
+- [ ] Add type check and render
+
+#### Update Canvas.js
+- [ ] Import preview component
+- [ ] Add type check and render
+
+#### Update ContentImporter.js
+- [ ] Add section display logic
+
+### 4. Backend Rendering
+
+#### Update SectionRenderer.php
+- [ ] Add `render_[name]()` method
+- [ ] Extract ALL standard fields
+- [ ] Use consistent HTML structure
+- [ ] Apply proper sanitization
+
+### 5. Styles
+
+#### Create section CSS
+- [ ] File: `src/styles/sections/[name].css`
+- [ ] Copy Features CSS as base
+- [ ] Only modify items styles
+- [ ] Use CSS variables for colors
+
+#### Import CSS
+- [ ] Update `src/styles/frontend.css`
+
+### 6. Testing
+
+- [ ] Build succeeds without errors
+- [ ] Section appears in add menu
+- [ ] All fields save correctly
+- [ ] Preview updates in real-time
+- [ ] Frontend renders properly
+- [ ] Theme variants work
+- [ ] Layout variants work
+- [ ] Responsive design works
+- [ ] Items add/remove/reorder works
+
+## Why This Structure Matters for AI
+
+1. **Consistent Patterns**: AI learns one structure, not many
+2. **Predictable Mapping**: Document content maps to same fields
+3. **Section Selection**: AI chooses correct section based on content type
+4. **Reliable Output**: Same structure = predictable rendering
+
+## Common Implementation Errors to Avoid
+
+1. **Field Naming**: Don't rename standard fields
+2. **Missing Fields**: Include ALL fields even if unused
+3. **HTML Structure**: Keep identical except items block
+4. **Color Hardcoding**: Always use CSS variables
+5. **Sanitization**: Always sanitize in PHP
+6. **Responsive**: Test all screen sizes

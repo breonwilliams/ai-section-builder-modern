@@ -2,6 +2,7 @@ import React from 'react';
 import { useEditor } from '../Providers/EditorProvider';
 import HeroPreview from '../Sections/Hero/HeroPreview';
 import FeaturesPreview from '../Sections/Features/FeaturesPreview';
+import StatsPreview from '../Sections/Stats/StatsPreview';
 
 function Canvas() {
   const { sections, currentSectionIndex, setCurrentSection } = useEditor();
@@ -32,6 +33,9 @@ function Canvas() {
             )}
             {section.type === 'features' && (
               <FeaturesPreview content={section.content} />
+            )}
+            {section.type === 'stats' && (
+              <StatsPreview content={section.content} />
             )}
           </div>
         ))}
