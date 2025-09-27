@@ -5,6 +5,7 @@ import FeaturesPreview from '../Sections/Features/FeaturesPreview';
 import StatsPreview from '../Sections/Stats/StatsPreview';
 import TestimonialsPreview from '../Sections/Testimonials/TestimonialsPreview';
 import ChecklistPreview from '../Sections/Checklist/ChecklistPreview';
+import FAQPreview from '../Sections/FAQ/FAQPreview';
 
 function Canvas() {
   const { sections, currentSectionIndex, setCurrentSection } = useEditor();
@@ -44,6 +45,9 @@ function Canvas() {
             )}
             {section.type === 'checklist' && (
               <ChecklistPreview content={section.content} />
+            )}
+            {section.type === 'faq' && (
+              <FAQPreview content={section.content} />
             )}
           </div>
         ))}

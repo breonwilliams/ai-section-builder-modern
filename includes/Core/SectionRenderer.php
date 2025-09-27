@@ -49,6 +49,8 @@ class SectionRenderer {
                 return $this->render_testimonials($content);
             case 'checklist':
                 return $this->render_checklist($content);
+            case 'faq':
+                return $this->render_faq($content);
             default:
                 return '';
         }
@@ -628,6 +630,178 @@ class SectionRenderer {
                                 </div>
                             <?php elseif ($media_type === 'video' && $video): ?>
                                 <div class="aisb-checklist__media">
+                                    <?php echo $this->render_video_embed($video); ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </section>
+        <?php
+        return ob_get_clean();
+    }
+    
+    /**
+     * Render FAQ section
+     * 
+     * @param array $content Section content
+     * @return string HTML
+     */
+    private function render_faq($content) {
+        // Extract data with defaults
+        $eyebrow = esc_html($content['eyebrow_heading'] ?? '');
+        $heading = esc_html($content['heading'] ?? 'Frequently Asked Questions');
+        $body = wp_kses_post($content['content'] ?? '');
+        $questions = $content['questions'] ?? [];
+        $buttons = $content['buttons'] ?? [];
+        $outro = wp_kses_post($content['outro_content'] ?? '');
+        $theme = esc_attr($content['theme_variant'] ?? 'light');
+        $layout = esc_attr($content['layout_variant'] ?? 'content-left');
+        $media_type = $content['media_type'] ?? 'none';
+        $image = esc_url($content['featured_image'] ?? '');
+        $video = esc_url($content['video_url'] ?? '');
+        
+        $classes = "aisb-section aisb-faq aisb-section--{$theme} aisb-section--{$layout}";
+        
+        ob_start();
+        ?>
+        <section class="<?php echo $classes; ?>">
+            <div class="aisb-faq__container">
+                <?php if ($layout !== 'center'): ?>
+                    <!-- Two-column layout -->
+                    <div class="aisb-faq__columns">
+                        <!-- Content Column -->
+                        <div class="aisb-faq__content-column">
+                            <?php if ($eyebrow): ?>
+                                <div class="aisb-faq__eyebrow"><?php echo $eyebrow; ?></div>
+                            <?php endif; ?>
+                            
+                            <?php if ($heading): ?>
+                                <h2 class="aisb-faq__heading"><?php echo $heading; ?></h2>
+                            <?php endif; ?>
+                            
+                            <?php if ($body): ?>
+                                <div class="aisb-faq__content"><?php echo $body; ?></div>
+                            <?php endif; ?>
+                            
+                            <!-- FAQ Items -->
+                            <?php if (!empty($questions)): ?>
+                                <div class="aisb-faq__items">
+                                    <?php foreach ($questions as $item): ?>
+                                        <div class="aisb-faq__item">
+                                            <div class="aisb-faq__item-question">
+                                                <?php echo esc_html($item['question'] ?? 'Question'); ?>
+                                            </div>
+                                            <div class="aisb-faq__item-answer">
+                                                <div class="aisb-faq__item-answer-inner">
+                                                    <div class="aisb-faq__item-answer-content">
+                                                        <?php echo wp_kses_post($item['answer'] ?? ''); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            
+                            <?php if (!empty($buttons)): ?>
+                                <div class="aisb-faq__buttons">
+                                    <?php foreach ($buttons as $button): ?>
+                                        <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
+                                           class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>"
+                                           target="<?php echo esc_attr($button['target'] ?? '_self'); ?>"
+                                           <?php if (($button['target'] ?? '_self') === '_blank'): ?>rel="noopener noreferrer"<?php endif; ?>>
+                                            <?php echo esc_html($button['text'] ?? 'Button'); ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            
+                            <?php if ($outro && !$this->is_content_empty($outro)): ?>
+                                <div class="aisb-faq__outro"><?php echo $outro; ?></div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <!-- Media Column -->
+                        <?php if ($media_type !== 'none'): ?>
+                            <div class="aisb-faq__media-column">
+                                <?php if ($media_type === 'image' && $image): ?>
+                                    <div class="aisb-faq__media">
+                                        <img src="<?php echo $image; ?>" 
+                                             alt="<?php echo esc_attr($heading); ?>" 
+                                             class="aisb-faq__image">
+                                    </div>
+                                <?php elseif ($media_type === 'video' && $video): ?>
+                                    <div class="aisb-faq__media">
+                                        <?php echo $this->render_video_embed($video); ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php else: ?>
+                    <!-- Center layout -->
+                    <div class="aisb-faq__center">
+                        <?php if ($eyebrow): ?>
+                            <div class="aisb-faq__eyebrow"><?php echo $eyebrow; ?></div>
+                        <?php endif; ?>
+                        
+                        <?php if ($heading): ?>
+                            <h2 class="aisb-faq__heading"><?php echo $heading; ?></h2>
+                        <?php endif; ?>
+                        
+                        <?php if ($body): ?>
+                            <div class="aisb-faq__content"><?php echo $body; ?></div>
+                        <?php endif; ?>
+                        
+                        <!-- FAQ Items -->
+                        <?php if (!empty($questions)): ?>
+                            <div class="aisb-faq__items">
+                                <?php foreach ($questions as $item): ?>
+                                    <div class="aisb-faq__item">
+                                        <div class="aisb-faq__item-question">
+                                            <?php echo esc_html($item['question'] ?? 'Question'); ?>
+                                        </div>
+                                        <div class="aisb-faq__item-answer">
+                                            <div class="aisb-faq__item-answer-inner">
+                                                <div class="aisb-faq__item-answer-content">
+                                                    <?php echo wp_kses_post($item['answer'] ?? ''); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($buttons)): ?>
+                            <div class="aisb-faq__buttons">
+                                <?php foreach ($buttons as $button): ?>
+                                    <a href="<?php echo esc_url($button['url'] ?? '#'); ?>" 
+                                       class="aisb-btn aisb-btn-<?php echo esc_attr($button['style'] ?? 'primary'); ?>"
+                                       target="<?php echo esc_attr($button['target'] ?? '_self'); ?>"
+                                       <?php if (($button['target'] ?? '_self') === '_blank'): ?>rel="noopener noreferrer"<?php endif; ?>>
+                                        <?php echo esc_html($button['text'] ?? 'Button'); ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if ($outro && !$this->is_content_empty($outro)): ?>
+                            <div class="aisb-faq__outro"><?php echo $outro; ?></div>
+                        <?php endif; ?>
+                        
+                        <!-- Media below content for center layout -->
+                        <?php if ($media_type !== 'none'): ?>
+                            <?php if ($media_type === 'image' && $image): ?>
+                                <div class="aisb-faq__media">
+                                    <img src="<?php echo $image; ?>" 
+                                         alt="<?php echo esc_attr($heading); ?>" 
+                                         class="aisb-faq__image">
+                                </div>
+                            <?php elseif ($media_type === 'video' && $video): ?>
+                                <div class="aisb-faq__media">
                                     <?php echo $this->render_video_embed($video); ?>
                                 </div>
                             <?php endif; ?>

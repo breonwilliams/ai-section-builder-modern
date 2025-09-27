@@ -6,7 +6,7 @@
 // Import frontend styles
 import './styles/frontend.css';
 
-// This file will handle frontend interactions like FAQ accordions
-// For now, it's a placeholder to satisfy webpack config
+// Import FAQ accordion functionality
+import './assets/js/faq-accordion.js';
 
 console.log('AI Section Builder frontend loaded');

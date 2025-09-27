@@ -15,6 +15,7 @@ import './styles/sections/features.css';
 import './styles/sections/stats.css';
 import './styles/sections/testimonials.css';
 import './styles/sections/checklist.css';
+import './styles/sections/faq.css';
 import App from './App';
 
 // Configure DOMPurify globally

@@ -5,6 +5,7 @@ import FeaturesForm from '../Sections/Features/FeaturesForm';
 import StatsForm from '../Sections/Stats/StatsForm';
 import TestimonialsForm from '../Sections/Testimonials/TestimonialsForm';
 import ChecklistForm from '../Sections/Checklist/ChecklistForm';
+import FAQForm from '../Sections/FAQ/FAQForm';
 import GlobalSettings from './GlobalSettings';
 import Icon from '../Common/Icon';
 
@@ -130,6 +131,18 @@ function LeftSidebar() {
                   List features and benefits
                 </div>
               </button>
+              <button
+                className="aisb-section-card"
+                onClick={() => handleAddSection('faq')}
+              >
+                <div className="aisb-section-card__icon">
+                  <Icon name="faq" size="large" />
+                </div>
+                <div className="aisb-section-card__title">FAQ</div>
+                <div className="aisb-section-card__desc">
+                  Answer common questions
+                </div>
+              </button>
             </div>
           </div>
         ) : (
@@ -162,6 +175,13 @@ function LeftSidebar() {
             
             {currentSection.type === 'checklist' && (
               <ChecklistForm
+                content={currentSection.content}
+                onChange={(updates) => updateSection(currentSectionIndex, updates)}
+              />
+            )}
+            
+            {currentSection.type === 'faq' && (
+              <FAQForm
                 content={currentSection.content}
                 onChange={(updates) => updateSection(currentSectionIndex, updates)}
               />

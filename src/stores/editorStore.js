@@ -473,6 +473,40 @@ function getDefaultContent(type) {
         theme_variant: 'light',
         layout_variant: 'content-left',
       };
+    case 'faq':
+      return {
+        // HEADER BLOCK - Standard fields
+        eyebrow_heading: '',
+        heading: 'Frequently Asked Questions',
+        content: '<p>Find answers to common questions about our services</p>',
+        media_type: 'none',
+        featured_image: '',
+        video_url: '',
+        
+        // ITEMS BLOCK - FAQ specific (accordion questions)
+        questions: [
+          {
+            question: 'What is included in your service?',
+            answer: '<p>Our comprehensive solution includes everything you need to get started, with 24/7 support and regular updates.</p>',
+          },
+          {
+            question: 'How does pricing work?',
+            answer: '<p>We offer flexible pricing plans based on your needs. Contact us for a custom quote tailored to your requirements.</p>',
+          },
+          {
+            question: 'Do you offer customer support?',
+            answer: '<p>Yes! We provide 24/7 customer support via email, chat, and phone to ensure you always have help when you need it.</p>',
+          },
+        ],
+        
+        // FOOTER BLOCK - Standard fields
+        outro_content: '',
+        buttons: [],
+        
+        // SETTINGS - Standard fields
+        theme_variant: 'light',
+        layout_variant: 'content-left',
+      };
     default:
       return {};
   }
